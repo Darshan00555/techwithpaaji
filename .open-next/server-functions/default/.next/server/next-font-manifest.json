@@ -1,0 +1,17 @@
+{
+  "app": {
+    "[project]/app/_not-found/page": [],
+    "[project]/app/about/page": [],
+    "[project]/app/blog/[slug]/page": [],
+    "[project]/app/blog/page": [],
+    "[project]/app/breakup-recovery/page": [],
+    "[project]/app/communication-coaching/page": [],
+    "[project]/app/contact/page": [],
+    "[project]/app/page": [],
+    "[project]/app/relationship-reset/page": [],
+    "[project]/app/services/page": []
+  },
+  "appUsingSizeAdjust": false,
+  "pages": {},
+  "pagesUsingSizeAdjust": false
+}

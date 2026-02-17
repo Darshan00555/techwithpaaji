@@ -1,0 +1,15 @@
+{
+  "/_global-error/page": "/_global-error",
+  "/_not-found/page": "/_not-found",
+  "/about/page": "/about",
+  "/blog/[slug]/page": "/blog/[slug]",
+  "/blog/page": "/blog",
+  "/breakup-recovery/page": "/breakup-recovery",
+  "/communication-coaching/page": "/communication-coaching",
+  "/contact/page": "/contact",
+  "/page": "/",
+  "/relationship-reset/page": "/relationship-reset",
+  "/robots.txt/route": "/robots.txt",
+  "/services/page": "/services",
+  "/sitemap.xml/route": "/sitemap.xml"
+}
