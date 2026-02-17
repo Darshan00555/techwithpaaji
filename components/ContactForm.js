@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useMemo, useState } from "react";
+import emailjs from "@emailjs/browser";
 
 const defaultForm = {
   name: "",
@@ -34,74 +35,25 @@ function validate(values) {
   return errors;
 }
 
-function FloatingField({
-  id,
-  label,
-  value,
-  error,
-  onChange,
-  type = "text",
-  textarea = false,
-}) {
-  const active = value.length > 0;
-  const fieldClasses = `w-full rounded-xl border bg-white/75 px-4 pb-3 pt-6 text-sm text-[#0E1E1E] outline-none transition-colors duration-200 ${
-    error
-      ? "border-red-400 focus:border-red-500"
-      : "border-[#0F3D3E]/16 focus:border-[#2A9D8F]"
-  }`;
-
-  return (
-    <label htmlFor={id} className="relative block">
-      {textarea ? (
-        <textarea
-          id={id}
-          rows={5}
-          value={value}
-          onChange={onChange}
-          className={fieldClasses + " resize-none"}
-        />
-      ) : (
-        <input
-          id={id}
-          type={type}
-          value={value}
-          onChange={onChange}
-          className={fieldClasses}
-        />
-      )}
-      <span
-        className={`pointer-events-none absolute left-4 transition-all duration-200 ${
-          active
-            ? "top-2 text-[11px] uppercase tracking-[0.16em] text-[#2A9D8F]"
-            : "top-4 text-sm text-[#0E1E1E]/48"
-        }`}
-      >
-        {label}
-      </span>
-      {error && <p className="mt-1 text-xs text-red-500">{error}</p>}
-    </label>
-  );
-}
-
 export default function ContactForm() {
   const [values, setValues] = useState(defaultForm);
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [touched, setTouched] = useState({});
+  const [errorMessage, setErrorMessage] = useState("");
 
   const errors = useMemo(() => validate(values), [values]);
   const hasErrors = Object.keys(errors).length > 0;
 
   const updateField = (key) => (event) => {
     setSubmitted(false);
+    setErrorMessage("");
     setValues((prev) => ({ ...prev, [key]: event.target.value }));
   };
 
-  const handleBlur = (key) => () => {
-    setTouched((prev) => ({ ...prev, [key]: true }));
-  };
-
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+
     setTouched({
       name: true,
       email: true,
@@ -109,20 +61,43 @@ export default function ContactForm() {
       message: true,
     });
 
-    if (!hasErrors) {
+    if (hasErrors) return;
+
+    setLoading(true);
+    setErrorMessage("");
+
+    try {
+      await emailjs.send(
+        "service_d44ivwg",
+        "template_kmvx69m",
+        {
+          name: values.name,
+          email: values.email,
+          phone: values.phone,
+          message: values.message,
+          time: new Date().toLocaleString(),
+        },
+        "OtLeN4-GXrnnCCoNU"
+      );
+
       setSubmitted(true);
       setValues(defaultForm);
       setTouched({});
+    } catch (error) {
+      setErrorMessage("Something went wrong. Please try again.");
     }
+
+    setLoading(false);
   };
 
   return (
     <section id="contact" className="section-pad divider-line">
       <div className="container-premium grid gap-10 lg:grid-cols-[0.95fr_1.05fr]">
+
+        {/* Left Content */}
         <motion.div
           initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.25 }}
           transition={{ duration: 0.55 }}
         >
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#2A9D8F]">
@@ -135,74 +110,81 @@ export default function ContactForm() {
             Share your context and priorities. Our team reviews every inquiry
             personally and replies with next-step recommendations.
           </p>
-          <div className="mt-6 space-y-2 text-sm text-[#0E1E1E]/80">
-            <p>Email: hello@techwithpaaji.in</p>
-            <p>Phone: +91 99999 12345</p>
-            <p>Domain: techwithpaaji.in</p>
-          </div>
         </motion.div>
 
+        {/* Form */}
         <motion.form
           onSubmit={handleSubmit}
           initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.25 }}
-          transition={{ duration: 0.55, delay: 0.08 }}
+          transition={{ duration: 0.55 }}
           className="glass-card p-6 sm:p-7"
         >
           <div className="space-y-4">
-            <div onBlur={handleBlur("name")}>
-              <FloatingField
-                id="name"
-                label="Name"
-                value={values.name}
-                error={touched.name ? errors.name : ""}
-                onChange={updateField("name")}
-              />
-            </div>
-            <div onBlur={handleBlur("email")}>
-              <FloatingField
-                id="email"
-                type="email"
-                label="Email"
-                value={values.email}
-                error={touched.email ? errors.email : ""}
-                onChange={updateField("email")}
-              />
-            </div>
-            <div onBlur={handleBlur("phone")}>
-              <FloatingField
-                id="phone"
-                type="tel"
-                label="Phone"
-                value={values.phone}
-                error={touched.phone ? errors.phone : ""}
-                onChange={updateField("phone")}
-              />
-            </div>
-            <div onBlur={handleBlur("message")}>
-              <FloatingField
-                id="message"
-                label="Message"
-                textarea
-                value={values.message}
-                error={touched.message ? errors.message : ""}
-                onChange={updateField("message")}
-              />
-            </div>
+
+            <input
+              type="text"
+              placeholder="Name"
+              value={values.name}
+              onChange={updateField("name")}
+              className="w-full rounded-xl border border-[#0F3D3E]/10 bg-white/50 p-4 text-[#0F3D3E] placeholder:text-[#0F3D3E]/50 focus:border-[#2A9D8F] focus:outline-none focus:ring-1 focus:ring-[#2A9D8F] transition-all"
+            />
+            {touched.name && errors.name && (
+              <p className="text-xs text-red-500">{errors.name}</p>
+            )}
+
+            <input
+              type="email"
+              placeholder="Email"
+              value={values.email}
+              onChange={updateField("email")}
+              className="w-full rounded-xl border border-[#0F3D3E]/10 bg-white/50 p-4 text-[#0F3D3E] placeholder:text-[#0F3D3E]/50 focus:border-[#2A9D8F] focus:outline-none focus:ring-1 focus:ring-[#2A9D8F] transition-all"
+            />
+            {touched.email && errors.email && (
+              <p className="text-xs text-red-500">{errors.email}</p>
+            )}
+
+            <input
+              type="tel"
+              placeholder="Phone"
+              value={values.phone}
+              onChange={updateField("phone")}
+              className="w-full rounded-xl border border-[#0F3D3E]/10 bg-white/50 p-4 text-[#0F3D3E] placeholder:text-[#0F3D3E]/50 focus:border-[#2A9D8F] focus:outline-none focus:ring-1 focus:ring-[#2A9D8F] transition-all"
+            />
+            {touched.phone && errors.phone && (
+              <p className="text-xs text-red-500">{errors.phone}</p>
+            )}
+
+            <textarea
+              placeholder="Message"
+              rows={5}
+              value={values.message}
+              onChange={updateField("message")}
+              className="w-full rounded-xl border border-[#0F3D3E]/10 bg-white/50 p-4 text-[#0F3D3E] placeholder:text-[#0F3D3E]/50 focus:border-[#2A9D8F] focus:outline-none focus:ring-1 focus:ring-[#2A9D8F] transition-all resize-none"
+            />
+            {touched.message && errors.message && (
+              <p className="text-xs text-red-500">{errors.message}</p>
+            )}
+
           </div>
 
           <button
             type="submit"
-            className="premium-button mt-5 w-full bg-[#F4A261] text-[#0F3D3E] shadow-[0_10px_20px_rgba(244,162,97,0.3)] hover:bg-[#f6b178]"
+            disabled={loading}
+            className="premium-button mt-6 w-full bg-[#F4A261] py-3 text-[#0F3D3E] shadow-[0_10px_20px_rgba(244,162,97,0.25)] hover:bg-[#f6b178] hover:shadow-[0_14px_28px_rgba(244,162,97,0.35)]"
           >
-            Submit Consultation Request
+            {loading ? "Sending..." : "Submit Consultation Request"}
           </button>
 
           {submitted && (
-            <p className="mt-4 rounded-lg border border-[#2A9D8F]/30 bg-[#2A9D8F]/10 px-3 py-2 text-sm text-[#0F3D3E]">
-              Thank you. Your message has been received. We will contact you
-              shortly.
+            <p className="mt-4 rounded-lg bg-green-100 p-2 text-sm text-green-700">
+              Thank you. Your message has been sent successfully.
+            </p>
+          )}
+
+          {errorMessage && (
+            <p className="mt-4 rounded-lg bg-red-100 p-2 text-sm text-red-700">
+              {errorMessage}
             </p>
           )}
         </motion.form>
