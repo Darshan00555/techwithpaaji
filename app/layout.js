@@ -96,8 +96,8 @@ const organizationSchema = {
     {
       "@type": "ContactPoint",
       contactType: "customer support",
-      email: "hello@techwithpaaji.in",
-      telephone: "+91-99999-12345",
+      email: "darshan.ntg@gmail.com",
+      telephone: "+91-97738-17031",
       areaServed: "IN",
       availableLanguage: ["English", "Hindi"]
     }

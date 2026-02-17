@@ -65,14 +65,14 @@ export default function ContactPage() {
                 Prefer direct email?
               </p>
               <h2 className="mt-4 max-w-3xl text-3xl font-semibold text-white sm:text-5xl">
-                hello@techwithpaaji.in
+                darshan.ntg@gmail.com
               </h2>
               <p className="mt-4 max-w-2xl text-sm text-white/84 sm:text-base">
                 Mention your current situation, target outcome, and preferred call timing.
               </p>
               <div className="mt-6 flex flex-col gap-3 sm:flex-row">
                 <Link
-                  href="mailto:hello@techwithpaaji.in"
+                  href="mailto:darshan.ntg@gmail.com"
                   className="premium-button bg-[#F4A261] text-[#0F3D3E] hover:bg-[#f7b880]"
                 >
                   Email Paaji Connect

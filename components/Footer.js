@@ -53,8 +53,8 @@ export default function Footer() {
           <p className="text-sm font-semibold tracking-[0.16em] text-[#F4A261]">
             Contact Info
           </p>
-          <p className="mt-4 text-sm text-white/82">hello@techwithpaaji.in</p>
-          <p className="mt-2 text-sm text-white/82">+91 99999 12345</p>
+          <p className="mt-4 text-sm text-white/82">darshan.ntg@gmail.com</p>
+          <p className="mt-2 text-sm text-white/82">+91 97738 17031</p>
           <p className="mt-2 text-sm text-white/82">techwithpaaji.in</p>
         </div>
 
