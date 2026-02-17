@@ -129,7 +129,7 @@ export default function Navbar() {
           <div className="flex shrink-0 items-center gap-3">
             <Link
               href="/contact"
-              className="premium-button hidden bg-[#F4A261] py-2 text-[#0F3D3E] shadow-[0_10px_22px_rgba(244,162,97,0.32)] hover:bg-[#f6b178] md:inline-flex"
+              className="premium-button !hidden bg-[#F4A261] py-2 text-[#0F3D3E] shadow-[0_10px_22px_rgba(244,162,97,0.32)] hover:bg-[#f6b178] md:!inline-flex"
             >
               Book Consultation
             </Link>
