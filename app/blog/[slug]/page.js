@@ -90,7 +90,7 @@ export default async function BlogPostPage({ params }) {
       name: SITE_NAME,
       logo: {
         "@type": "ImageObject",
-        url: `${SITE_URL}/images/logo-mark.svg`
+        url: `${SITE_URL}/logo.png`
       }
     },
     datePublished: post.publishedAt,

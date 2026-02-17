@@ -48,6 +48,12 @@ a {
 .page-shell {
   position: relative;
   overflow-x: clip;
+  isolation: isolate;
+  pointer-events: none;
+}
+
+.page-shell>* {
+  pointer-events: auto;
 }
 
 .container-premium {
@@ -97,7 +103,7 @@ a {
 }
 
 .ambient-light {
-  pointer-events: none;
+  pointer-events: none !important;
   position: absolute;
   inset: 0;
   z-index: -1;
@@ -151,4 +157,17 @@ a {
 ::selection {
   background: rgba(244, 162, 97, 0.3);
   color: #0f3d3e;
+}
+
+header {
+  position: relative;
+  z-index: 100 !important;
+}
+
+header a,
+header button {
+  pointer-events: auto !important;
+  cursor: pointer !important;
+  position: relative;
+  z-index: 101;
 }

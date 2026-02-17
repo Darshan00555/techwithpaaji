@@ -74,11 +74,11 @@ export default function Hero() {
           className="glass-card p-7 lg:p-8"
         >
           <Image
-            src="/images/logo-mark.svg"
-            alt="Paaji Connect logo mark"
+            src="/logo.png"
+            alt="Paaji Connect logo"
             width={42}
             height={42}
-            className="rounded-full border border-[#0F3D3E]/10 bg-white p-1"
+            className="rounded-full border border-[#0F3D3E]/10 object-cover p-1"
           />
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#2A9D8F]">
             Signature Session

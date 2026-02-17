@@ -64,6 +64,17 @@ export const metadata = {
       "max-video-preview": -1,
     }
   },
+  icons: {
+    icon: [
+      { url: '/logo.png', sizes: '32x32', type: 'image/png' },
+      { url: '/logo.png', sizes: '16x16', type: 'image/png' }
+    ],
+    apple: { url: '/logo.png', sizes: '180x180', type: 'image/png' },
+    other: [
+      { rel: 'icon', url: '/logo.png', sizes: '192x192', type: 'image/png' },
+      { rel: 'icon', url: '/logo.png', sizes: '512x512', type: 'image/png' }
+    ]
+  },
   category: "relationship coaching"
 };
 
@@ -72,7 +83,7 @@ const organizationSchema = {
   "@type": "Organization",
   name: SITE_NAME,
   url: SITE_URL,
-  logo: `${SITE_URL}/images/logo-mark.svg`,
+  logo: `${SITE_URL}/logo.png`,
   sameAs: [SITE_URL],
   areaServed: "India",
   knowsAbout: [
