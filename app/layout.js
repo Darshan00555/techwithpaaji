@@ -82,16 +82,36 @@ export const metadata = {
 const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
+  "@id": `${SITE_URL}/#organization`,
   name: SITE_NAME,
   url: SITE_URL,
-  logo: `${SITE_URL}/logo.png`,
-  sameAs: [SITE_URL],
+  logo: {
+    "@type": "ImageObject",
+    url: `${SITE_URL}/logo.png`,
+    width: 200,
+    height: 200
+  },
+  sameAs: [
+    SITE_URL,
+    "https://www.instagram.com/paaji.connect",
+    "https://www.youtube.com/@paajiconnect"
+  ],
+  foundingDate: "2024",
+  foundingLocation: {
+    "@type": "Place",
+    address: {
+      "@type": "PostalAddress",
+      addressCountry: "IN"
+    }
+  },
   areaServed: "India",
   knowsAbout: [
     "relationship coaching",
     "breakup recovery",
     "communication coaching for couples",
-    "relationship conflict resolution"
+    "relationship conflict resolution",
+    "long distance relationship advice",
+    "trust rebuilding after cheating"
   ],
   contactPoint: [
     {

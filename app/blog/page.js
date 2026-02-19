@@ -2,8 +2,9 @@
 import Footer from "../../components/Footer";
 import Navbar from "../../components/Navbar";
 import PageTransition from "../../components/PageTransition";
-import { getAllPosts } from "../../lib/blogData";
+import { getAllPosts } from "../../lib/mdxUtils";
 import { OG_IMAGE, SITE_NAME, SITE_URL } from "../../lib/seo";
+
 
 export const metadata = {
   title: "Relationship Advice Blog India",
@@ -49,6 +50,29 @@ function formatDate(date) {
 export default function BlogIndexPage() {
   const posts = getAllPosts();
 
+  // Blog listing schema — helps Google parse the index as a blog collection
+  const blogListSchema = {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    name: `${SITE_NAME} Relationship Advice Blog`,
+    url: `${SITE_URL}/blog`,
+    description: "Practical, long-form relationship advice covering breakup recovery, communication skills, trust repair, and emotional intelligence.",
+    publisher: {
+      "@type": "Organization",
+      name: SITE_NAME,
+      url: SITE_URL
+    },
+    blogPost: posts.map((post) => ({
+      "@type": "BlogPosting",
+      headline: post.title,
+      description: post.description,
+      datePublished: post.date,
+      url: `${SITE_URL}/blog/${post.slug}`,
+      author: { "@type": "Organization", name: post.author },
+      keywords: post.keywords.join(", "),
+    }))
+  };
+
   return (
     <div className="page-shell">
       <Navbar />
@@ -79,7 +103,7 @@ export default function BlogIndexPage() {
                   <h2 className="mt-3 text-2xl font-semibold text-[#0F3D3E]">{post.title}</h2>
                   <p className="mt-4 text-sm text-[#0E1E1E]/80">{post.description}</p>
                   <div className="mt-5 flex items-center gap-3 text-xs text-[#0E1E1E]/62">
-                    <span>{formatDate(post.publishedAt)}</span>
+                    <span>{formatDate(post.date)}</span>
                     <span>|</span>
                     <span>{post.readTime}</span>
                   </div>
@@ -87,7 +111,7 @@ export default function BlogIndexPage() {
                     href={`/blog/${post.slug}`}
                     className="mt-6 inline-flex text-sm font-semibold text-[#0F3D3E] transition-colors duration-200 hover:text-[#F4A261]"
                   >
-                    Read full article
+                    Read full article →
                   </Link>
                 </article>
               ))}
@@ -95,6 +119,11 @@ export default function BlogIndexPage() {
           </section>
         </main>
       </PageTransition>
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(blogListSchema) }}
+      />
       <Footer />
     </div>
   );
