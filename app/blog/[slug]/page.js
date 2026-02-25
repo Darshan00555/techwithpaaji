@@ -4,6 +4,7 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 import Footer from "../../../components/Footer";
 import Navbar from "../../../components/Navbar";
 import PageTransition from "../../../components/PageTransition";
+import AdsterraNativeBanner from "../../../components/AdsterraNativeBanner";
 import { getAllSlugs, getPostBySlug } from "../../../lib/mdxUtils";
 import { OG_IMAGE, SITE_NAME, SITE_URL } from "../../../lib/seo";
 
@@ -214,6 +215,7 @@ export default async function BlogPostPage({ params }) {
               {/* Main article body */}
               <div className="glass-card p-7 sm:p-10 min-w-0">
                 <MDXRemote source={post.content} components={mdxComponents} />
+                <AdsterraNativeBanner />
               </div>
 
               {/* Sidebar */}
