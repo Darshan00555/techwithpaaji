@@ -63,16 +63,16 @@ export default function Footer() {
             Legal
           </p>
           <Link
-            href="/contact"
+            href="/privacy-policy"
             className="mt-4 block text-sm text-white/82 transition-colors duration-200 hover:text-[#F4A261]"
           >
-            Privacy Policy Request
+            Privacy Policy
           </Link>
           <Link
-            href="/contact"
+            href="/terms-and-conditions"
             className="mt-2 block text-sm text-white/82 transition-colors duration-200 hover:text-[#F4A261]"
           >
-            Terms and Conditions Request
+            Terms & Conditions
           </Link>
           <p className="mt-6 text-xs text-white/56">
             Copyright {new Date().getFullYear()} Paaji Connect. All rights
