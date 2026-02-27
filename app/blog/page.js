@@ -69,7 +69,7 @@ export default function BlogIndexPage() {
     <div className="page-shell">
       <Navbar />
       <PageTransition>
-        <main>
+        <main style={{ paddingTop: "68px" }}>
           {/* ── Hero header ── */}
           <section className="section-pad">
             <div className="ambient-light" />

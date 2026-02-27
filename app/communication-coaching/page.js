@@ -73,7 +73,7 @@ export default function CommunicationCoachingPage() {
     <div className="page-shell">
       <Navbar />
       <PageTransition>
-        <main>
+        <main style={{ paddingTop: "68px" }}>
           <section className="section-pad">
             <div className="ambient-light" />
             <div className="container-premium">

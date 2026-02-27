@@ -179,7 +179,7 @@ export default async function BlogPostPage({ params }) {
     <div className="page-shell">
       <Navbar />
       <PageTransition>
-        <main>
+        <main style={{ paddingTop: "68px" }}>
           {/* Hero / Header */}
           <article className="section-pad">
             <div className="ambient-light" />

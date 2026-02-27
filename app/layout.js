@@ -8,6 +8,7 @@ import "@fontsource/playfair-display/600.css";
 import "@fontsource/playfair-display/700.css";
 import "./globals.css";
 import { OG_IMAGE, SITE_NAME, SITE_URL } from "../lib/seo";
+import FloatingCTA from "../components/FloatingCTA";
 
 const siteTitle = "Paaji Connect | Relationship Coach in India";
 const siteDescription =
@@ -166,6 +167,7 @@ export default function RootLayout({ children }) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
         />
         {children}
+        <FloatingCTA />
         <Analytics />
       </body>
     </html>

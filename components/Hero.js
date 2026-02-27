@@ -2,110 +2,204 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import { useRef } from "react";
 
 const badges = [
-  "500+ couples supported",
-  "92% communication improvement",
-  "4.9/5 client rating",
+  { icon: "✓", text: "500+ couples supported" },
+  { icon: "✓", text: "92% communication improvement" },
+  { icon: "✓", text: "4.9/5 client rating" },
+];
+
+const heroCard = [
+  "Relational pattern mapping",
+  "Structured communication playbook",
+  "Weekly private implementation review",
 ];
 
 export default function Hero() {
   const sectionRef = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start start", "end start"],
-  });
-  const cardY = useTransform(scrollYProgress, [0, 1], [0, -36]);
 
   return (
-    <section id="home" ref={sectionRef} className="section-pad relative">
+    <section id="home" ref={sectionRef} className="section-pad relative overflow-hidden" style={{ paddingTop: "3rem" }}>
+      {/* Ambient background */}
       <div className="ambient-light" />
-      <div className="container-premium grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
+
+      {/* Decorative floating blobs */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: "absolute", top: "-80px", right: "-60px",
+          width: "420px", height: "420px", borderRadius: "50%",
+          background: "radial-gradient(circle, rgba(244,162,97,0.14) 0%, transparent 70%)",
+          animation: "floatSlow 9s ease-in-out infinite",
+          zIndex: 0, pointerEvents: "none",
+        }}
+      />
+      <div
+        aria-hidden="true"
+        style={{
+          position: "absolute", bottom: "-100px", left: "-80px",
+          width: "500px", height: "500px", borderRadius: "50%",
+          background: "radial-gradient(circle, rgba(42,157,143,0.12) 0%, transparent 70%)",
+          animation: "floatSlow 12s ease-in-out infinite reverse",
+          zIndex: 0, pointerEvents: "none",
+        }}
+      />
+
+      <div className="container-premium relative z-10 grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr]">
+        {/* Left column */}
         <motion.div
-          initial={{ opacity: 0, y: 28 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="space-y-7"
+          transition={{ duration: 0.75, ease: [0.2, 0.8, 0.2, 1] }}
+          className="space-y-6"
         >
-          <p className="inline-flex rounded-full border border-[#2A9D8F]/20 bg-white/50 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#0F3D3E]">
-            Luxury Relationship Consulting
+          <p
+            className="inline-flex rounded-full border border-[#2A9D8F]/25 bg-white/60 px-4 py-2 text-xs font-bold uppercase tracking-[0.22em] text-[#0F3D3E]"
+            style={{ backdropFilter: "blur(8px)" }}
+          >
+            ✦ Luxury Relationship Consulting
           </p>
-          <h1 className="max-w-3xl text-4xl font-semibold text-[#0F3D3E] sm:text-5xl lg:text-6xl">
-            Build Stronger Relationships With Clarity, Structure {"&"} Emotional
-            Intelligence.
+
+          <h1 className="text-[2.1rem] font-semibold leading-[1.12] text-[#0F3D3E] sm:text-5xl lg:text-6xl" style={{ maxWidth: "640px" }}>
+            Build Stronger Relationships With{" "}
+            <span
+              style={{
+                background: "linear-gradient(135deg, #0F3D3E, #2A9D8F)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+              }}
+            >
+              Clarity &amp; Emotional Intelligence.
+            </span>
           </h1>
-          <p className="max-w-2xl text-base text-[#0E1E1E]/80 sm:text-lg">
+
+          <p className="text-base text-[#0E1E1E]/78 sm:text-lg" style={{ maxWidth: "520px", lineHeight: 1.7 }}>
             Private relationship consulting for couples who want calm
             communication, deeper connection, and measurable growth.
           </p>
+
           <div className="flex flex-col gap-3 sm:flex-row">
             <Link
               href="/contact"
-              className="premium-button bg-[#F4A261] text-[#0F3D3E] shadow-[0_12px_26px_rgba(244,162,97,0.32)] hover:bg-[#f6b178]"
+              className="premium-button bg-[#F4A261] text-[#0F3D3E] shadow-[0_12px_28px_rgba(244,162,97,0.36)] hover:bg-[#f6b178]"
+              style={{ fontSize: "0.95rem", padding: "0.9rem 1.75rem" }}
             >
               Book Private Consultation
             </Link>
             <Link
               href="/services"
-              className="premium-button border border-[#0F3D3E]/26 bg-white/36 text-[#0F3D3E] hover:border-[#2A9D8F] hover:text-[#2A9D8F]"
+              className="premium-button text-[#0F3D3E] hover:text-[#2A9D8F]"
+              style={{
+                fontSize: "0.95rem",
+                background: "#ffffff",
+                border: "2px solid rgba(15,61,62,0.35)",
+                color: "#0F3D3E",
+              }}
             >
               Explore Programs
             </Link>
           </div>
-          <div className="flex flex-wrap gap-2.5">
+
+          {/* Badges */}
+          <div className="flex flex-wrap gap-2">
             {badges.map((badge) => (
               <span
-                key={badge}
-                className="rounded-full border border-white/40 bg-white/48 px-3 py-1.5 text-xs font-medium text-[#0E1E1E]/85"
+                key={badge.text}
+                className="flex items-center gap-1.5 rounded-full border border-white/50 bg-white/55 px-3.5 py-1.5 text-xs font-semibold text-[#0F3D3E]"
+                style={{ backdropFilter: "blur(8px)" }}
               >
-                {badge}
+                <span className="text-[#2A9D8F] font-bold">{badge.icon}</span>
+                {badge.text}
               </span>
             ))}
           </div>
         </motion.div>
 
+        {/* Right column — Info card */}
         <motion.aside
-          style={{ y: cardY }}
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, delay: 0.1 }}
-          className="glass-card p-7 lg:p-8"
+          initial={{ opacity: 0, scale: 0.93, y: 20 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.12, ease: [0.2, 0.8, 0.2, 1] }}
+          className="glass-card p-6 lg:p-8"
+          style={{
+            background: "linear-gradient(145deg, rgba(255,255,255,0.75) 0%, rgba(245,241,232,0.6) 100%)",
+          }}
         >
-          <Image
-            src="/logo.png"
-            alt="Paaji Connect logo"
-            width={42}
-            height={42}
-            className="rounded-full border border-[#0F3D3E]/10 object-cover p-1"
-          />
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#2A9D8F]">
-            Signature Session
-          </p>
-          <h2 className="mt-4 text-3xl font-semibold text-[#0F3D3E]">
+          {/* Logo with pulse */}
+          <div className="flex items-center gap-3 mb-5">
+            <div style={{ animation: "pulse-ring 2.5s ease-out infinite", borderRadius: "50%", display: "inline-block" }}>
+              <Image
+                src="/logo.png"
+                alt="Paaji Connect logo"
+                width={46}
+                height={46}
+                className="rounded-full object-cover"
+                style={{ border: "2px solid rgba(15,61,62,0.12)" }}
+              />
+            </div>
+            <div>
+              <p className="text-[0.65rem] font-bold uppercase tracking-[0.22em] text-[#2A9D8F]">
+                Signature Session
+              </p>
+              <p className="text-xs text-[#0E1E1E]/60 font-medium">Paaji Connect</p>
+            </div>
+          </div>
+
+          <h2 className="text-2xl font-semibold text-[#0F3D3E] leading-snug lg:text-3xl">
             Strategy + emotional depth in every engagement.
           </h2>
-          <p className="mt-4 text-sm text-[#0E1E1E]/78">
+          <p className="mt-3 text-sm text-[#0E1E1E]/75 leading-relaxed">
             Every consulting journey begins with a detailed relationship
             diagnostic and transitions into a guided implementation sprint
             designed for consistent momentum.
           </p>
-          <div className="mt-6 space-y-3">
-            {[
-              "Relational pattern mapping",
-              "Structured communication playbook",
-              "Weekly private implementation review",
-            ].map((item) => (
+
+          <div className="mt-5 flex flex-col gap-2.5">
+            {heroCard.map((item, i) => (
               <div
                 key={item}
-                className="rounded-xl border border-[#0F3D3E]/10 bg-white/70 px-4 py-3 text-sm font-medium text-[#0E1E1E]/82"
+                className="flex items-center gap-3 rounded-xl border border-[#0F3D3E]/10 bg-white/80 px-4 py-3 text-sm font-medium text-[#0E1E1E]/80"
+                style={{
+                  animation: `fadeSlideUp 0.5s ${0.2 + i * 0.1}s ease both`,
+                }}
               >
+                <span
+                  className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-white text-[0.6rem] font-bold"
+                  style={{ background: "var(--pc-teal)" }}
+                >
+                  ✓
+                </span>
                 {item}
               </div>
             ))}
           </div>
+
+          <Link
+            href="/contact"
+            className="premium-button mt-5 w-full text-[#0F3D3E] text-sm font-bold"
+            style={{
+              background: "#F4A261",
+              boxShadow: "0 8px 22px rgba(244,162,97,0.35)",
+            }}
+          >
+            Start Free Consultation →
+          </Link>
         </motion.aside>
+      </div>
+
+      {/* Scroll down indicator */}
+      <div
+        className="hidden sm:flex flex-col items-center gap-1 absolute bottom-6 left-1/2"
+        aria-hidden="true"
+        style={{ animation: "bounce-arrow 2s ease-in-out infinite", zIndex: 1 }}
+      >
+        <span className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-[#0F3D3E]/40">Scroll</span>
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#0F3D3E" strokeWidth={2} opacity={0.35}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+        </svg>
       </div>
     </section>
   );
