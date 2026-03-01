@@ -5,7 +5,7 @@ import Footer from "../../../components/Footer";
 import Navbar from "../../../components/Navbar";
 import PageTransition from "../../../components/PageTransition";
 import AdsterraNativeBanner from "../../../components/AdsterraNativeBanner";
-import { getAllSlugs, getPostBySlug } from "../../../lib/mdxUtils";
+import { getAllSlugs, getAllPosts, getPostBySlug } from "../../../lib/mdxUtils";
 import { OG_IMAGE, SITE_NAME, SITE_URL } from "../../../lib/seo";
 
 function formatDate(date) {
@@ -112,6 +112,16 @@ export default async function BlogPostPage({ params }) {
   const post = getPostBySlug(slug);
 
   if (!post) notFound();
+
+  // Get related posts: same category first, then others, exclude current post, take 4
+  const allPosts = getAllPosts();
+  const sameCategoryPosts = allPosts.filter(
+    (p) => p.slug !== post.slug && p.category === post.category
+  );
+  const otherPosts = allPosts.filter(
+    (p) => p.slug !== post.slug && p.category !== post.category
+  );
+  const relatedPosts = [...sameCategoryPosts, ...otherPosts].slice(0, 4);
 
   const pageUrl = `${SITE_URL}/blog/${post.slug}`;
 
@@ -281,6 +291,31 @@ export default async function BlogPostPage({ params }) {
               </aside>
             </div>
           </section>
+          {/* Related Posts */}
+          {relatedPosts.length > 0 && (
+            <section className="section-pad pt-0">
+              <div className="container-premium">
+                <h2 className="text-xl font-semibold text-[#0F3D3E] mb-5">Related Articles</h2>
+                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                  {relatedPosts.map((relPost) => (
+                    <Link
+                      key={relPost.slug}
+                      href={`/blog/${relPost.slug}`}
+                      className="block rounded-2xl border border-[#0F3D3E]/12 bg-white/72 p-4 transition-all duration-200 hover:border-[#2A9D8F]/40 hover:shadow-md"
+                    >
+                      <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#2A9D8F] mb-2">
+                        {relPost.category}
+                      </p>
+                      <h3 className="text-sm font-semibold text-[#0F3D3E] leading-snug line-clamp-3">
+                        {relPost.title}
+                      </h3>
+                      <p className="mt-2 text-xs text-[#0E1E1E]/60">{relPost.readTime}</p>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </section>
+          )}
         </main>
       </PageTransition>
 

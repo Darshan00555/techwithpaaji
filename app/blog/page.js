@@ -6,24 +6,30 @@ import { getAllPosts } from "../../lib/mdxUtils";
 import { OG_IMAGE, SITE_NAME, SITE_URL } from "../../lib/seo";
 
 export const metadata = {
-  title: "Relationship Advice Blog India",
+  title: "Relationship Advice Blog India | 68+ Expert Articles",
   description:
-    "Read long-form relationship advice in India on breakup recovery, communication coaching for couples, trust rebuilding, and emotional intelligence.",
+    "Read 68+ long-form relationship advice articles in India on breakup recovery, communication coaching for couples, trust rebuilding, love bombing, attachment styles, and emotional intelligence. Expert guidance by Paaji Connect.",
   keywords: [
     "relationship advice India",
     "online relationship coaching India",
     "how to fix relationship problems",
     "how to rebuild trust after breakup",
     "communication coaching for couples",
-    "relationship conflict resolution"
+    "relationship conflict resolution",
+    "breakup recovery India",
+    "toxic relationship signs",
+    "love bombing India",
+    "attachment styles India",
+    "relationship coach India blog",
+    "relationship tips India 2026"
   ],
   alternates: {
     canonical: "/blog"
   },
   openGraph: {
-    title: "Relationship Advice Blog India | Paaji Connect",
+    title: "Relationship Advice Blog India | 68+ Expert Articles | Paaji Connect",
     description:
-      "Authority relationship blog with practical guides on communication, trust repair, and breakup recovery.",
+      "68+ authority relationship articles: communication coaching, trust repair, breakup recovery, love bombing, attachment styles and more.",
     url: `${SITE_URL}/blog`,
     siteName: SITE_NAME,
     type: "website",
@@ -32,9 +38,15 @@ export const metadata = {
         url: OG_IMAGE,
         width: 1200,
         height: 630,
-        alt: "Relationship advice blog India"
+        alt: "Relationship advice blog India - Paaji Connect"
       }
     ]
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Relationship Advice Blog India | Paaji Connect",
+    description: "68+ expert relationship articles covering breakup recovery, communication, trust, and more.",
+    images: [OG_IMAGE]
   }
 };
 
@@ -48,7 +60,7 @@ export default function BlogIndexPage() {
     name: `${SITE_NAME} Relationship Advice Blog`,
     url: `${SITE_URL}/blog`,
     description:
-      "Practical, long-form relationship advice covering breakup recovery, communication skills, trust repair, and emotional intelligence.",
+      "68+ practical, long-form relationship advice articles covering breakup recovery, communication skills, trust repair, love bombing, attachment styles, and emotional intelligence for couples and individuals in India.",
     publisher: {
       "@type": "Organization",
       name: SITE_NAME,
@@ -75,18 +87,42 @@ export default function BlogIndexPage() {
             <div className="ambient-light" />
             <div className="container-premium">
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#2A9D8F]">
-                Paaji Connect Authority Blog
+                Paaji Connect Relationship Advice Blog India
               </p>
               <h1 className="mt-4 max-w-4xl text-4xl font-semibold text-[#0F3D3E] sm:text-6xl">
-                Actionable Relationship Advice for Couples and Individuals
+                Actionable Relationship Advice for Couples and Individuals in India
               </h1>
               <p className="mt-5 max-w-3xl text-base text-[#0E1E1E]/80 sm:text-lg">
-                Explore deep practical articles on trust, communication, breakup
-                recovery help, attachment styles, and long-term relationship growth
-                strategy.
+                68+ expert articles on breakup recovery, communication coaching for couples,
+                trust rebuilding, love bombing, attachment styles, toxic relationships,
+                and long-term relationship growth strategy — by Paaji Connect, India&apos;s relationship coaching platform.
               </p>
             </div>
           </section>
+
+          {/* ── CRITICAL SEO: Server-rendered links for ALL posts (Googlebot crawl) ── */}
+          {/* This section is visually hidden from users but fully readable by Googlebot */}
+          {/* BlogFilterClient is 'use client' so Googlebot cannot see those links */}
+          <nav
+            aria-label="All blog articles index"
+            style={{
+              position: "absolute",
+              width: "1px",
+              height: "1px",
+              overflow: "hidden",
+              clip: "rect(0,0,0,0)",
+              whiteSpace: "nowrap",
+            }}
+          >
+            <h2>All Relationship Advice Articles</h2>
+            <ul>
+              {posts.map((post) => (
+                <li key={post.slug}>
+                  <a href={`/blog/${post.slug}`}>{post.title}</a>
+                </li>
+              ))}
+            </ul>
+          </nav>
 
           {/* ── Search + Filter + Blog Grid (Client Component) ── */}
           <BlogFilterClient posts={posts} />

@@ -6,16 +6,13 @@ export default function robots() {
             {
                 userAgent: "*",
                 allow: "/",
-                disallow: ["/api/", "/_next/", "/static/"],
-            },
-            {
-                // Allow Googlebot specifically for rich indexing
-                userAgent: "Googlebot",
-                allow: "/",
-                disallow: ["/api/"],
+                disallow: ["/api/", "/_next/"],
             },
         ],
-        sitemap: `${SITE_URL}/sitemap.xml`,
+        sitemap: [
+            `${SITE_URL}/sitemap.xml`,
+            `${SITE_URL}/feed.xml`,
+        ],
         host: SITE_URL,
     };
 }
