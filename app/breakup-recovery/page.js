@@ -27,30 +27,94 @@ const faqs = [
   }
 ];
 
-const faqSchema = {
+const serviceSchema = {
   "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: faqs.map((item) => ({
-    "@type": "Question",
-    name: item.question,
-    acceptedAnswer: {
-      "@type": "Answer",
-      text: item.answer
-    }
-  }))
+  "@type": "Service",
+  name: "Breakup Recovery Coaching India",
+  description:
+    "Structured breakup recovery coaching program in India for emotional healing, confidence rebuilding, and healthy next-step decisions after heartbreak. Includes private sessions, weekly frameworks, and accountability.",
+  provider: {
+    "@type": "Organization",
+    name: "Paaji Connect",
+    url: "https://techwithpaaji.in",
+    telephone: "+91-97738-17031",
+    email: "darshan.ntg@gmail.com",
+    areaServed: "India",
+    sameAs: [
+      "https://www.instagram.com/paaji.connect",
+      "https://www.youtube.com/@paajiconnect"
+    ]
+  },
+  serviceType: "Relationship Coaching",
+  areaServed: {
+    "@type": "Country",
+    name: "India"
+  },
+  url: "https://techwithpaaji.in/breakup-recovery",
+  image: "https://techwithpaaji.in/images/og-cover.svg",
+  offers: {
+    "@type": "Offer",
+    availability: "https://schema.org/InStock",
+    priceCurrency: "INR",
+    priceRange: "₹₹",
+    url: "https://techwithpaaji.in/contact"
+  },
+  hasOfferCatalog: {
+    "@type": "OfferCatalog",
+    name: "Breakup Recovery Services",
+    itemListElement: [
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Emotional Stabilization Session",
+          description: "Reduce emotional overwhelm, control anxiety spikes, and stop panic texting."
+        }
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Pattern & Relationship Decode",
+          description: "Map communication gaps, attachment behaviors, and trust ruptures."
+        }
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Direction Rebuild Program",
+          description: "Move forward confidently or reconnect safely with a structured communication strategy."
+        }
+      }
+    ]
+  }
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: "https://techwithpaaji.in" },
+    { "@type": "ListItem", position: 2, name: "Breakup Recovery Coaching India", item: "https://techwithpaaji.in/breakup-recovery" }
+  ]
 };
 
 export const metadata = {
-  title: "Breakup Recovery Coach India",
+  title: "Breakup Recovery Coach India | Paaji Connect",
   description:
-    "Work with a breakup recovery coach India clients trust for emotional stability, trust rebuilding, and safe reconnection strategy after heartbreak.",
+    "Work with a breakup recovery coach India clients trust — emotional healing, confidence rebuilding, and safe reconnection strategy after heartbreak. Private sessions available online.",
   keywords: [
     "breakup recovery coach India",
-    "breakup emotional recovery help",
-    "paid breakup recovery coach",
+    "breakup emotional recovery help India",
+    "how to recover from breakup India",
     "how to get ex back safely",
     "how to rebuild trust after breakup",
-    "online relationship coaching India"
+    "online relationship coaching India",
+    "breakup coach online India",
+    "relationship recovery India",
+    "moving on after heartbreak India",
+    "emotional healing after breakup"
   ],
   alternates: {
     canonical: "/breakup-recovery"
@@ -58,7 +122,7 @@ export const metadata = {
   openGraph: {
     title: "Breakup Recovery Coach India | Paaji Connect",
     description:
-      "Structured breakup recovery coaching for emotional healing, confidence rebuilding, and healthy next-step decisions.",
+      "Structured breakup recovery coaching for emotional healing, confidence rebuilding, and healthy next-step decisions after heartbreak.",
     url: `${SITE_URL}/breakup-recovery`,
     siteName: SITE_NAME,
     type: "website",
@@ -67,9 +131,15 @@ export const metadata = {
         url: OG_IMAGE,
         width: 1200,
         height: 630,
-        alt: "Breakup recovery coach India"
+        alt: "Breakup recovery coach India - Paaji Connect"
       }
     ]
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Breakup Recovery Coach India | Paaji Connect",
+    description: "Structured breakup recovery coaching — emotional healing & confidence rebuilding.",
+    images: [OG_IMAGE]
   }
 };
 
@@ -215,10 +285,19 @@ export default function BreakupRecoveryPage() {
         </main>
       </PageTransition>
 
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{
+        __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: faqs.map((item) => ({
+            "@type": "Question",
+            name: item.question,
+            acceptedAnswer: { "@type": "Answer", text: item.answer }
+          }))
+        })
+      }} />
       <Footer />
     </div>
   );

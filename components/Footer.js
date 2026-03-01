@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import { getAllPosts } from "../lib/mdxUtils";
 
 const quickLinks = [
   { label: "Home", href: "/" },
@@ -11,6 +12,7 @@ const quickLinks = [
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
 ];
+
 
 const socialLinks = [
   {
@@ -43,6 +45,8 @@ const socialLinks = [
 ];
 
 export default function Footer() {
+  const recentPosts = getAllPosts().slice(0, 8);
+
   return (
     <footer
       className="bg-[#0B2E2F] text-white"
@@ -52,7 +56,8 @@ export default function Footer() {
       }}
     >
       <div className="container-premium py-12 md:py-16">
-        <div className="grid gap-10 sm:grid-cols-2 md:grid-cols-4">
+        <div className="grid gap-10 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5">
+
           {/* Brand column */}
           <div className="sm:col-span-2 md:col-span-1">
             <div className="flex items-center gap-2.5 mb-4">
@@ -162,6 +167,26 @@ export default function Footer() {
               </Link>
             </div>
           </div>
+          {/* Recent Articles — SEO internal linking for Googlebot */}
+          <div className="sm:col-span-2 md:col-span-1">
+            <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#F4A261] mb-4">
+              Recent Articles
+            </p>
+            <div className="flex flex-col gap-2">
+              {recentPosts.map((post) => (
+                <Link
+                  key={post.slug}
+                  href={`/blog/${post.slug}`}
+                  className="text-xs text-white/60 transition-colors duration-200 hover:text-[#F4A261] leading-snug"
+                >
+                  {post.title.length > 50 ? post.title.slice(0, 50) + "…" : post.title}
+                </Link>
+              ))}
+              <Link href="/blog" className="mt-1 text-xs font-semibold text-[#2A9D8F] hover:text-[#F4A261] transition-colors">
+                View all articles →
+              </Link>
+            </div>
+          </div>
         </div>
 
         {/* Bottom bar */}
@@ -172,7 +197,7 @@ export default function Footer() {
             © {new Date().getFullYear()} Paaji Connect. Made with ❤️ in India. All rights reserved.
           </p>
           <p className="text-xs text-white/35">
-            Relationship Coaching · Breakup Recovery · Communication Coaching
+            Relationship Coaching · Breakup Recovery · Communication Coaching · India
           </p>
         </div>
       </div>
