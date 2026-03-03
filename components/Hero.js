@@ -62,7 +62,7 @@ export default function Hero() {
             ✦ Luxury Relationship Consulting
           </p>
 
-          <h1 className="text-[2.1rem] font-semibold leading-[1.12] text-[#0F3D3E] sm:text-5xl lg:text-6xl" style={{ maxWidth: "640px" }}>
+          <h1 className="text-[1.75rem] font-semibold leading-[1.2] text-[#0F3D3E] sm:text-5xl lg:text-6xl" style={{ maxWidth: "640px" }}>
             Build Stronger Relationships With{" "}
             <span
               style={{

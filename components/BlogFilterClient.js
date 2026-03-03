@@ -6,233 +6,236 @@ import { useState, useMemo, useRef } from "react";
 const POSTS_PER_PAGE = 12;
 
 function formatDate(date) {
-    return new Intl.DateTimeFormat("en-IN", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-    }).format(new Date(date));
+  if (!date) return "Recently";
+  const d = new Date(date);
+  if (isNaN(d.getTime())) return "Recently";
+  return new Intl.DateTimeFormat("en-IN", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  }).format(d);
 }
 
 /** Generates a smart page number array like [1, 2, "…", 7, 8, 9, "…", 15] */
 function getPageNumbers(currentPage, totalPages) {
-    if (totalPages <= 7) return Array.from({ length: totalPages }, (_, i) => i + 1);
-    const pages = [];
-    const left = Math.max(2, currentPage - 1);
-    const right = Math.min(totalPages - 1, currentPage + 1);
-    pages.push(1);
-    if (left > 2) pages.push("…");
-    for (let i = left; i <= right; i++) pages.push(i);
-    if (right < totalPages - 1) pages.push("…");
-    pages.push(totalPages);
-    return pages;
+  if (totalPages <= 7) return Array.from({ length: totalPages }, (_, i) => i + 1);
+  const pages = [];
+  const left = Math.max(2, currentPage - 1);
+  const right = Math.min(totalPages - 1, currentPage + 1);
+  pages.push(1);
+  if (left > 2) pages.push("…");
+  for (let i = left; i <= right; i++) pages.push(i);
+  if (right < totalPages - 1) pages.push("…");
+  pages.push(totalPages);
+  return pages;
 }
 
 export default function BlogFilterClient({ posts }) {
-    const [searchQuery, setSearchQuery] = useState("");
-    const [activeCategory, setActiveCategory] = useState("All");
-    const [currentPage, setCurrentPage] = useState(1);
-    const gridRef = useRef(null);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [activeCategory, setActiveCategory] = useState("All");
+  const [currentPage, setCurrentPage] = useState(1);
+  const gridRef = useRef(null);
 
-    // Build unique category list from posts
-    const categories = useMemo(() => {
-        const cats = ["All", ...new Set(posts.map((p) => p.category).filter(Boolean))];
-        return cats;
-    }, [posts]);
+  // Build unique category list from posts
+  const categories = useMemo(() => {
+    const cats = ["All", ...new Set(posts.map((p) => p.category).filter(Boolean))];
+    return cats;
+  }, [posts]);
 
-    // Filter posts based on search query and active category
-    const filteredPosts = useMemo(() => {
-        const q = searchQuery.toLowerCase().trim();
-        return posts.filter((post) => {
-            const matchesCategory =
-                activeCategory === "All" || post.category === activeCategory;
-            const matchesSearch =
-                !q ||
-                post.title.toLowerCase().includes(q) ||
-                post.description.toLowerCase().includes(q) ||
-                (post.tags || []).some((tag) => tag.toLowerCase().includes(q)) ||
-                (post.keywords || []).some((kw) => kw.toLowerCase().includes(q)) ||
-                (post.category || "").toLowerCase().includes(q);
-            return matchesCategory && matchesSearch;
-        });
-    }, [posts, searchQuery, activeCategory]);
+  // Filter posts based on search query and active category
+  const filteredPosts = useMemo(() => {
+    const q = searchQuery.toLowerCase().trim();
+    return posts.filter((post) => {
+      const matchesCategory =
+        activeCategory === "All" || post.category === activeCategory;
+      const matchesSearch =
+        !q ||
+        post.title.toLowerCase().includes(q) ||
+        post.description.toLowerCase().includes(q) ||
+        (post.tags || []).some((tag) => tag.toLowerCase().includes(q)) ||
+        (post.keywords || []).some((kw) => kw.toLowerCase().includes(q)) ||
+        (post.category || "").toLowerCase().includes(q);
+      return matchesCategory && matchesSearch;
+    });
+  }, [posts, searchQuery, activeCategory]);
 
-    // Pagination calculations
-    const totalPages = Math.max(1, Math.ceil(filteredPosts.length / POSTS_PER_PAGE));
-    const safePage = Math.min(currentPage, totalPages);
-    const pageStart = (safePage - 1) * POSTS_PER_PAGE;
-    const pagePosts = filteredPosts.slice(pageStart, pageStart + POSTS_PER_PAGE);
-    const pageNumbers = getPageNumbers(safePage, totalPages);
+  // Pagination calculations
+  const totalPages = Math.max(1, Math.ceil(filteredPosts.length / POSTS_PER_PAGE));
+  const safePage = Math.min(currentPage, totalPages);
+  const pageStart = (safePage - 1) * POSTS_PER_PAGE;
+  const pagePosts = filteredPosts.slice(pageStart, pageStart + POSTS_PER_PAGE);
+  const pageNumbers = getPageNumbers(safePage, totalPages);
 
-    function goToPage(page) {
-        setCurrentPage(page);
-        setTimeout(() => {
-            gridRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-        }, 50);
-    }
+  function goToPage(page) {
+    setCurrentPage(page);
+    setTimeout(() => {
+      gridRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 50);
+  }
 
-    function handleSearch(val) {
-        setSearchQuery(val);
-        setCurrentPage(1);
-    }
+  function handleSearch(val) {
+    setSearchQuery(val);
+    setCurrentPage(1);
+  }
 
-    function handleCategory(cat) {
-        setActiveCategory(cat);
-        setSearchQuery("");
-        setCurrentPage(1);
-    }
+  function handleCategory(cat) {
+    setActiveCategory(cat);
+    setSearchQuery("");
+    setCurrentPage(1);
+  }
 
-    function handleReset() {
-        setSearchQuery("");
-        setActiveCategory("All");
-        setCurrentPage(1);
-    }
+  function handleReset() {
+    setSearchQuery("");
+    setActiveCategory("All");
+    setCurrentPage(1);
+  }
 
-    return (
-        <section className="section-pad divider-line pt-0">
-            <div className="container-premium">
+  return (
+    <section className="section-pad divider-line pt-0">
+      <div className="container-premium">
 
-                {/* ── Search + Filter Bar ── */}
-                <div className="blog-controls">
-                    <div className="blog-search-wrap">
-                        <svg
-                            className="blog-search-icon"
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                        >
-                            <circle cx="11" cy="11" r="8" />
-                            <line x1="21" y1="21" x2="16.65" y2="16.65" />
-                        </svg>
-                        <input
-                            type="search"
-                            placeholder="Search articles… e.g. breakup, anxiety, love bombing"
-                            value={searchQuery}
-                            onChange={(e) => handleSearch(e.target.value)}
-                            className="blog-search-input"
-                            aria-label="Search blog articles"
-                        />
-                        {searchQuery && (
-                            <button
-                                onClick={handleReset}
-                                className="blog-search-clear"
-                                aria-label="Clear search"
-                            >
-                                ✕
-                            </button>
-                        )}
-                    </div>
+        {/* ── Search + Filter Bar ── */}
+        <div className="blog-controls">
+          <div className="blog-search-wrap">
+            <svg
+              className="blog-search-icon"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <circle cx="11" cy="11" r="8" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg>
+            <input
+              type="search"
+              placeholder="Search articles… e.g. breakup, anxiety, love bombing"
+              value={searchQuery}
+              onChange={(e) => handleSearch(e.target.value)}
+              className="blog-search-input"
+              aria-label="Search blog articles"
+            />
+            {searchQuery && (
+              <button
+                onClick={handleReset}
+                className="blog-search-clear"
+                aria-label="Clear search"
+              >
+                ✕
+              </button>
+            )}
+          </div>
 
-                    <div className="blog-filters" role="group" aria-label="Filter by category">
-                        {categories.map((cat) => (
-                            <button
-                                key={cat}
-                                onClick={() => handleCategory(cat)}
-                                className={`blog-filter-chip${activeCategory === cat ? " active" : ""}`}
-                                aria-pressed={activeCategory === cat}
-                            >
-                                {cat}
-                            </button>
-                        ))}
-                    </div>
-                </div>
+          <div className="blog-filters" role="group" aria-label="Filter by category">
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                onClick={() => handleCategory(cat)}
+                className={`blog-filter-chip${activeCategory === cat ? " active" : ""}`}
+                aria-pressed={activeCategory === cat}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+        </div>
 
-                {/* ── Results count ── */}
-                <p className="blog-results-count" ref={gridRef}>
-                    {filteredPosts.length === posts.length
-                        ? `${posts.length} articles`
-                        : `${filteredPosts.length} of ${posts.length} articles`}
-                    {activeCategory !== "All" && (
-                        <span> in <strong>{activeCategory}</strong></span>
-                    )}
-                    {searchQuery && (
-                        <span> matching <strong>"{searchQuery}"</strong></span>
-                    )}
-                    {totalPages > 1 && (
-                        <span className="page-info"> · Page {safePage} of {totalPages}</span>
-                    )}
-                </p>
+        {/* ── Results count ── */}
+        <p className="blog-results-count" ref={gridRef}>
+          {filteredPosts.length === posts.length
+            ? `${posts.length} articles`
+            : `${filteredPosts.length} of ${posts.length} articles`}
+          {activeCategory !== "All" && (
+            <span> in <strong>{activeCategory}</strong></span>
+          )}
+          {searchQuery && (
+            <span> matching <strong>"{searchQuery}"</strong></span>
+          )}
+          {totalPages > 1 && (
+            <span className="page-info"> · Page {safePage} of {totalPages}</span>
+          )}
+        </p>
 
-                {/* ── Blog cards grid ── */}
-                {pagePosts.length > 0 ? (
-                    <>
-                        <div className="blog-grid">
-                            {pagePosts.map((post) => (
-                                <article key={post.slug} className="glass-card blog-card">
-                                    <p className="blog-card-category">{post.category}</p>
-                                    <h2 className="blog-card-title">{post.title}</h2>
-                                    <p className="blog-card-desc">{post.description}</p>
-                                    <div className="blog-card-meta">
-                                        <span>{formatDate(post.date)}</span>
-                                        <span>·</span>
-                                        <span>{post.readTime}</span>
-                                    </div>
-                                    <Link href={`/blog/${post.slug}`} className="blog-card-link">
-                                        Read full article →
-                                    </Link>
-                                </article>
-                            ))}
-                        </div>
-
-                        {/* ── Pagination controls ── */}
-                        {totalPages > 1 && (
-                            <nav className="pagination" aria-label="Blog page navigation">
-                                <button
-                                    onClick={() => goToPage(safePage - 1)}
-                                    disabled={safePage === 1}
-                                    className="page-btn page-arrow"
-                                    aria-label="Previous page"
-                                >
-                                    ← Prev
-                                </button>
-
-                                <div className="page-numbers">
-                                    {pageNumbers.map((p, idx) =>
-                                        p === "…" ? (
-                                            <span key={`dots-${idx}`} className="page-dots">…</span>
-                                        ) : (
-                                            <button
-                                                key={p}
-                                                onClick={() => goToPage(p)}
-                                                className={`page-btn page-num${p === safePage ? " active" : ""}`}
-                                                aria-label={`Go to page ${p}`}
-                                                aria-current={p === safePage ? "page" : undefined}
-                                            >
-                                                {p}
-                                            </button>
-                                        )
-                                    )}
-                                </div>
-
-                                <button
-                                    onClick={() => goToPage(safePage + 1)}
-                                    disabled={safePage === totalPages}
-                                    className="page-btn page-arrow"
-                                    aria-label="Next page"
-                                >
-                                    Next →
-                                </button>
-                            </nav>
-                        )}
-                    </>
-                ) : (
-                    <div className="blog-empty">
-                        <p className="blog-empty-icon">🔍</p>
-                        <h3 className="blog-empty-title">No articles found</h3>
-                        <p className="blog-empty-sub">
-                            Try a different keyword or{" "}
-                            <button onClick={handleReset} className="blog-empty-reset">
-                                clear filters
-                            </button>
-                        </p>
-                    </div>
-                )}
+        {/* ── Blog cards grid ── */}
+        {pagePosts.length > 0 ? (
+          <>
+            <div className="blog-grid">
+              {pagePosts.map((post) => (
+                <article key={post.slug} className="glass-card blog-card">
+                  <p className="blog-card-category">{post.category}</p>
+                  <h2 className="blog-card-title">{post.title}</h2>
+                  <p className="blog-card-desc">{post.description}</p>
+                  <div className="blog-card-meta">
+                    <span>{formatDate(post.date)}</span>
+                    <span>·</span>
+                    <span>{post.readTime}</span>
+                  </div>
+                  <Link href={`/blog/${post.slug}`} className="blog-card-link">
+                    Read full article →
+                  </Link>
+                </article>
+              ))}
             </div>
 
-            <style jsx>{`
+            {/* ── Pagination controls ── */}
+            {totalPages > 1 && (
+              <nav className="pagination" aria-label="Blog page navigation">
+                <button
+                  onClick={() => goToPage(safePage - 1)}
+                  disabled={safePage === 1}
+                  className="page-btn page-arrow"
+                  aria-label="Previous page"
+                >
+                  ← Prev
+                </button>
+
+                <div className="page-numbers">
+                  {pageNumbers.map((p, idx) =>
+                    p === "…" ? (
+                      <span key={`dots-${idx}`} className="page-dots">…</span>
+                    ) : (
+                      <button
+                        key={p}
+                        onClick={() => goToPage(p)}
+                        className={`page-btn page-num${p === safePage ? " active" : ""}`}
+                        aria-label={`Go to page ${p}`}
+                        aria-current={p === safePage ? "page" : undefined}
+                      >
+                        {p}
+                      </button>
+                    )
+                  )}
+                </div>
+
+                <button
+                  onClick={() => goToPage(safePage + 1)}
+                  disabled={safePage === totalPages}
+                  className="page-btn page-arrow"
+                  aria-label="Next page"
+                >
+                  Next →
+                </button>
+              </nav>
+            )}
+          </>
+        ) : (
+          <div className="blog-empty">
+            <p className="blog-empty-icon">🔍</p>
+            <h3 className="blog-empty-title">No articles found</h3>
+            <p className="blog-empty-sub">
+              Try a different keyword or{" "}
+              <button onClick={handleReset} className="blog-empty-reset">
+                clear filters
+              </button>
+            </p>
+          </div>
+        )}
+      </div>
+
+      <style jsx>{`
         .blog-controls {
           display: flex;
           flex-direction: column;
@@ -493,6 +496,6 @@ export default function BlogFilterClient({ posts }) {
           .blog-card { padding: 1.75rem; }
         }
       `}</style>
-        </section>
-    );
+    </section>
+  );
 }

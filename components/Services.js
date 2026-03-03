@@ -73,7 +73,7 @@ export default function Services() {
           <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#2A9D8F]">
             Services
           </p>
-          <h2 className="mt-3 text-3xl font-semibold text-[#0F3D3E] sm:text-5xl">
+          <h2 className="mt-3 text-[1.65rem] font-semibold text-[#0F3D3E] leading-[1.3] sm:text-5xl">
             Premium consulting programs for modern couples.
           </h2>
         </motion.div>

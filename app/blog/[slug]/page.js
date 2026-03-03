@@ -62,24 +62,24 @@ export async function generateMetadata({ params }) {
 const mdxComponents = {
   h1: (props) => (
     <h1
-      className="mt-8 text-3xl font-semibold text-[#0F3D3E] sm:text-4xl"
+      className="mt-8 text-2xl font-semibold text-[#0F3D3E] sm:text-4xl"
       {...props}
     />
   ),
   h2: (props) => (
     <h2
-      className="mt-10 mb-4 text-2xl font-semibold text-[#0F3D3E] sm:text-3xl border-b border-[#0F3D3E]/10 pb-2"
+      className="mt-10 mb-4 text-[1.25rem] font-semibold text-[#0F3D3E] border-b border-[#0F3D3E]/10 pb-2 sm:text-3xl"
       {...props}
     />
   ),
   h3: (props) => (
     <h3
-      className="mt-7 mb-3 text-xl font-semibold text-[#0F3D3E]"
+      className="mt-7 mb-3 text-[1.1rem] font-semibold text-[#0F3D3E] sm:text-xl"
       {...props}
     />
   ),
   p: (props) => (
-    <p className="my-4 text-base leading-relaxed text-[#0E1E1E]/84" {...props} />
+    <p className="my-4 text-[0.9375rem] leading-[1.7] text-[#0E1E1E]/84 sm:text-base" {...props} />
   ),
   ul: (props) => (
     <ul className="my-4 space-y-2 pl-6 list-disc text-[#0E1E1E]/84" {...props} />
@@ -87,7 +87,7 @@ const mdxComponents = {
   ol: (props) => (
     <ol className="my-4 space-y-2 pl-6 list-decimal text-[#0E1E1E]/84" {...props} />
   ),
-  li: (props) => <li className="text-base leading-relaxed" {...props} />,
+  li: (props) => <li className="text-[0.9375rem] leading-[1.7] sm:text-base" {...props} />,
   a: (props) => (
     <a
       className="font-semibold text-[#0F3D3E] underline decoration-[#2A9D8F]/50 underline-offset-4 transition-colors duration-200 hover:text-[#2A9D8F]"
@@ -191,7 +191,7 @@ export default async function BlogPostPage({ params }) {
       <PageTransition>
         <main style={{ paddingTop: "68px" }}>
           {/* Hero / Header */}
-          <article className="section-pad">
+          <article className="section-pad-first">
             <div className="ambient-light" />
             <div className="container-premium">
               <Link
@@ -200,16 +200,16 @@ export default async function BlogPostPage({ params }) {
               >
                 ← Back to blog
               </Link>
-              <p className="mt-6 text-xs font-semibold uppercase tracking-[0.2em] text-[#2A9D8F]">
+              <p className="mt-4 text-xs font-semibold uppercase tracking-[0.2em] text-[#2A9D8F] sm:mt-6">
                 {post.category}
               </p>
-              <h1 className="mt-4 max-w-4xl text-4xl font-semibold text-[#0F3D3E] sm:text-5xl">
+              <h1 className="mt-2 max-w-4xl text-2xl font-semibold text-[#0F3D3E] leading-[1.2] sm:mt-4 sm:text-3xl md:text-5xl">
                 {post.title}
               </h1>
-              <p className="mt-5 max-w-3xl text-base text-[#0E1E1E]/80 sm:text-lg">
+              <p className="mt-3 max-w-3xl text-sm text-[#0E1E1E]/80 sm:mt-5 sm:text-base md:text-lg">
                 {post.description}
               </p>
-              <div className="mt-5 flex flex-wrap items-center gap-3 text-sm text-[#0E1E1E]/65">
+              <div className="mt-4 flex flex-wrap items-center gap-3 text-sm text-[#0E1E1E]/65 sm:mt-5">
                 <span>{post.author}</span>
                 <span>|</span>
                 <span>{formatDate(post.date)}</span>
@@ -223,7 +223,7 @@ export default async function BlogPostPage({ params }) {
           <section className="section-pad divider-line pt-0">
             <div className="container-premium grid gap-10 lg:grid-cols-[1fr_300px]">
               {/* Main article body */}
-              <div className="glass-card p-7 sm:p-10 min-w-0">
+              <div className="glass-card p-5 sm:p-10 min-w-0">
                 <MDXRemote source={post.content} components={mdxComponents} />
                 <AdsterraNativeBanner />
               </div>

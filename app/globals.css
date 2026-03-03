@@ -43,8 +43,8 @@ h4,
 h5,
 h6 {
   font-family: "Playfair Display", Georgia, serif;
-  letter-spacing: -0.02em;
-  line-height: 1.15;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
 }
 
 p {
@@ -73,13 +73,24 @@ img {
 }
 
 .container-premium {
-  width: min(1200px, calc(100% - 2.5rem));
+  width: min(1200px, calc(100% - 1.5rem));
   margin-inline: auto;
 }
 
 .section-pad {
-  padding-top: 4rem;
-  padding-bottom: 4rem;
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
+}
+
+.section-pad-first {
+  padding-top: 1.5rem;
+  padding-bottom: 2rem;
+}
+
+@media (min-width: 768px) {
+  .section-pad-first {
+    padding-top: 3rem;
+  }
 }
 
 /* ── Glass Card — GPU accelerated ── */
@@ -367,6 +378,11 @@ img {
   .section-pad {
     padding-top: 5.5rem;
     padding-bottom: 5.5rem;
+  }
+
+  .section-pad-first {
+    padding-top: 3rem;
+    padding-bottom: 4rem;
   }
 }
 
