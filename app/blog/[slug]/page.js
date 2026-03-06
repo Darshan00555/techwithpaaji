@@ -16,6 +16,18 @@ function formatDate(date) {
   }).format(new Date(date));
 }
 
+function slugify(text) {
+  return text
+    .toString()
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g, "-")
+    .replace(/[^\w-]+/g, "")
+    .replace(/--+/g, "-")
+    .replace(/^-+/, "")
+    .replace(/-+$/, "");
+}
+
 export function generateStaticParams() {
   return getAllSlugs();
 }
@@ -60,24 +72,36 @@ export async function generateMetadata({ params }) {
 
 // MDX component overrides — maps h2, h3, p, ul, ol, li, a, strong, hr to site-styled elements
 const mdxComponents = {
-  h1: (props) => (
-    <h1
-      className="mt-8 text-2xl font-semibold text-[#0F3D3E] sm:text-4xl"
-      {...props}
-    />
-  ),
-  h2: (props) => (
-    <h2
-      className="mt-10 mb-4 text-[1.25rem] font-semibold text-[#0F3D3E] border-b border-[#0F3D3E]/10 pb-2 sm:text-3xl"
-      {...props}
-    />
-  ),
-  h3: (props) => (
-    <h3
-      className="mt-7 mb-3 text-[1.1rem] font-semibold text-[#0F3D3E] sm:text-xl"
-      {...props}
-    />
-  ),
+  h1: (props) => {
+    const id = slugify(props.children);
+    return (
+      <h1
+        id={id}
+        className="mt-8 text-2xl font-semibold text-[#0F3D3E] sm:text-4xl"
+        {...props}
+      />
+    );
+  },
+  h2: (props) => {
+    const id = slugify(props.children);
+    return (
+      <h2
+        id={id}
+        className="mt-10 mb-4 text-[1.25rem] font-semibold text-[#0F3D3E] border-b border-[#0F3D3E]/10 pb-2 sm:text-3xl"
+        {...props}
+      />
+    );
+  },
+  h3: (props) => {
+    const id = slugify(props.children);
+    return (
+      <h3
+        id={id}
+        className="mt-7 mb-3 text-[1.1rem] font-semibold text-[#0F3D3E] sm:text-xl"
+        {...props}
+      />
+    );
+  },
   p: (props) => (
     <p className="my-4 text-[0.9375rem] leading-[1.7] text-[#0E1E1E]/84 sm:text-base" {...props} />
   ),
@@ -160,6 +184,25 @@ export default async function BlogPostPage({ params }) {
     articleSection: post.category,
     inLanguage: "en-IN",
     wordCount: post.content.split(/\s+/).length,
+  };
+
+  // --- WebPage schema ---
+  const webPageSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": `${pageUrl}/#webpage`,
+    url: pageUrl,
+    name: post.title,
+    description: post.description,
+    breadcrumb: { "@id": `${pageUrl}/#breadcrumb` },
+    mainEntity: { "@id": `${pageUrl}/#main-article` },
+    inLanguage: "en-IN",
+    potentialAction: [
+      {
+        "@type": "ReadAction",
+        target: [pageUrl]
+      }
+    ]
   };
 
   // --- FAQPage schema: extract Q&A pairs from MDX FAQ section ---
@@ -333,6 +376,10 @@ export default async function BlogPostPage({ params }) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
         />
       )}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }}
+      />
       <Footer />
     </div>
   );

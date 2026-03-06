@@ -22,14 +22,29 @@ const localBusinessSchema = {
   url: SITE_URL,
   telephone: "+91-97738-17031",
   email: "darshan.ntg@gmail.com",
+  address: {
+    "@type": "PostalAddress",
+    "addressLocality": "Ahmedabad",
+    "addressRegion": "Gujarat",
+    "addressCountry": "IN"
+  },
+  geo: {
+    "@type": "GeoCoordinates",
+    "latitude": "23.0225",
+    "longitude": "72.5714"
+  },
   sameAs: [
     "https://www.instagram.com/paaji.connect",
     "https://www.youtube.com/@paajiconnect"
   ],
-  areaServed: {
-    "@type": "Country",
-    name: "India"
-  },
+  areaServed: [
+    { "@type": "City", "name": "Ahmedabad" },
+    { "@type": "City", "name": "Mumbai" },
+    { "@type": "City", "name": "Delhi" },
+    { "@type": "City", "name": "Bangalore" },
+    { "@type": "City", "name": "Pune" },
+    { "@type": "Country", "name": "India" }
+  ],
   serviceType: [
     "Breakup Recovery Coaching",
     "Relationship Communication Coaching",
@@ -38,6 +53,7 @@ const localBusinessSchema = {
     "Online Relationship Coaching India"
   ],
   priceRange: "₹₹",
+  openingHours: "Mo-Su 09:00-21:00",
   inLanguage: ["en", "hi"],
   image: `${SITE_URL}${OG_IMAGE}`,
   potentialAction: {
@@ -51,6 +67,19 @@ const localBusinessSchema = {
       name: "Book a Relationship Coaching Session"
     }
   }
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": SITE_URL
+    }
+  ]
 };
 
 const webSiteSchema = {
@@ -166,7 +195,7 @@ export default function HomePage() {
               </div>
               <div style={{ marginTop: "1.5rem" }}>
                 <Link href="/blog" className="premium-button" style={{ background: "#0F3D3E", color: "#fff", display: "inline-flex" }}>
-                  Read All 88+ Articles →
+                  Read All 108+ Articles →
                 </Link>
               </div>
             </div>
@@ -183,6 +212,10 @@ export default function HomePage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
       <Footer />
     </div>

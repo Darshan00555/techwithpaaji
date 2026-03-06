@@ -50,14 +50,14 @@ const serviceSchema = {
     "@type": "Country",
     name: "India"
   },
-  url: "https://techwithpaaji.in/breakup-recovery",
-  image: "https://techwithpaaji.in/images/og-cover.svg",
+  url: `${SITE_URL}/breakup-recovery`,
+  image: `${SITE_URL}${OG_IMAGE}`,
   offers: {
     "@type": "Offer",
     availability: "https://schema.org/InStock",
     priceCurrency: "INR",
     priceRange: "₹₹",
-    url: "https://techwithpaaji.in/contact"
+    url: `${SITE_URL}/contact`
   },
   hasOfferCatalog: {
     "@type": "OfferCatalog",
@@ -95,8 +95,8 @@ const breadcrumbSchema = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   itemListElement: [
-    { "@type": "ListItem", position: 1, name: "Home", item: "https://techwithpaaji.in" },
-    { "@type": "ListItem", position: 2, name: "Breakup Recovery Coaching India", item: "https://techwithpaaji.in/breakup-recovery" }
+    { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+    { "@type": "ListItem", position: 2, name: "Breakup Recovery Coaching India", item: `${SITE_URL}/breakup-recovery` }
   ]
 };
 

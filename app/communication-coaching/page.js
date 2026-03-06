@@ -22,6 +22,40 @@ const faqs = [
   }
 ];
 
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  name: "Communication Coaching for Couples India",
+  description:
+    "Practical communication coaching for couples in India to stop repeated arguments, improve listening, and build emotional safety. Includes conversation scripts, nervous system regulation, and repair tools.",
+  provider: {
+    "@type": "Organization",
+    name: "Paaji Connect",
+    url: SITE_URL,
+    telephone: "+91-97738-17031",
+    email: "darshan.ntg@gmail.com",
+    areaServed: "India"
+  },
+  serviceType: "Relationship Coaching",
+  url: `${SITE_URL}/communication-coaching`,
+  image: `${SITE_URL}${OG_IMAGE}`,
+  offers: {
+    "@type": "Offer",
+    priceCurrency: "INR",
+    priceRange: "₹₹",
+    url: `${SITE_URL}/contact`
+  }
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+    { "@type": "ListItem", position: 2, name: "Communication Coaching", item: `${SITE_URL}/communication-coaching` }
+  ]
+};
+
 const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
@@ -174,6 +208,14 @@ export default function CommunicationCoachingPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
       <Footer />
     </div>

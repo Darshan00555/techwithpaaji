@@ -4,6 +4,71 @@ import Navbar from "../../components/Navbar";
 import PageTransition from "../../components/PageTransition";
 import { OG_IMAGE, SITE_NAME, SITE_URL } from "../../lib/seo";
 
+const faqs = [
+  {
+    question: "What is a 'Relationship Reset' and how does it fix problems?",
+    answer:
+      "A Relationship Reset is a structured 3-phase framework that pauses conflict loops, diagnoses root triggers, and installs new communication systems to rebuild trust and intimacy."
+  },
+  {
+    question: "How is this different from traditional marriage counseling India?",
+    answer:
+      "Unlike traditional counseling which can be open-ended, the Reset is a goal-oriented coaching program focusing on practical implementation, repair protocols, and sustainable weekly rituals."
+  },
+  {
+    question: "Can we save a relationship if interest is low on one side?",
+    answer:
+      "Yes. By changing the interaction patterns of one partner and creating a 'safety baseline', we often see the other partner's interest and commitment levels naturally increase."
+  }
+];
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  name: "Relationship Reset Program India",
+  description:
+    "A practical relationship coaching program for urban Indian couples to fix recurring problems, rebuild trust, and reconnect emotionally through a structured 3-phase reset protocol.",
+  provider: {
+    "@type": "Organization",
+    name: "Paaji Connect",
+    url: SITE_URL,
+    telephone: "+91-97738-17031",
+    email: "darshan.ntg@gmail.com",
+    areaServed: "India"
+  },
+  serviceType: "Relationship Coaching",
+  url: `${SITE_URL}/relationship-reset`,
+  image: `${SITE_URL}${OG_IMAGE}`,
+  offers: {
+    "@type": "Offer",
+    priceCurrency: "INR",
+    priceRange: "₹₹",
+    url: `${SITE_URL}/contact`
+  }
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+    { "@type": "ListItem", position: 2, name: "Relationship Reset", item: `${SITE_URL}/relationship-reset` }
+  ]
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((item) => ({
+    "@type": "Question",
+    name: item.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: item.answer
+    }
+  }))
+};
+
 export const metadata = {
   title: "How to Fix Relationship Problems | Relationship Reset",
   description:
@@ -128,6 +193,18 @@ export default function RelationshipResetPage() {
           </section>
         </main>
       </PageTransition>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       <Footer />
     </div>
   );

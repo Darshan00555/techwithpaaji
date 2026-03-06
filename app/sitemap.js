@@ -5,16 +5,16 @@ export default function sitemap() {
     const now = new Date();
     // Priority map: homepage = 1.0, service pages = 0.9, blog = 0.85, blog posts = 0.8
     const staticRoutes = [
-        { path: "", changeFrequency: "daily", priority: 1.0, lastModified: "2026-03-03" },
-        { path: "/services", changeFrequency: "weekly", priority: 0.9, lastModified: "2026-03-03" },
-        { path: "/breakup-recovery", changeFrequency: "weekly", priority: 0.9, lastModified: "2026-03-03" },
-        { path: "/communication-coaching", changeFrequency: "weekly", priority: 0.9, lastModified: "2026-03-03" },
-        { path: "/relationship-reset", changeFrequency: "weekly", priority: 0.9, lastModified: "2026-03-03" },
-        { path: "/blog", changeFrequency: "daily", priority: 0.85, lastModified: "2026-03-03" },
-        { path: "/about", changeFrequency: "monthly", priority: 0.7, lastModified: "2026-03-03" },
-        { path: "/contact", changeFrequency: "monthly", priority: 0.8, lastModified: "2026-03-03" },
-        { path: "/privacy-policy", changeFrequency: "yearly", priority: 0.3, lastModified: "2026-03-03" },
-        { path: "/terms-and-conditions", changeFrequency: "yearly", priority: 0.3, lastModified: "2026-03-03" },
+        { path: "", changeFrequency: "daily", priority: 1.0, lastModified: "2026-03-06" },
+        { path: "/services", changeFrequency: "weekly", priority: 0.9, lastModified: "2026-03-06" },
+        { path: "/breakup-recovery", changeFrequency: "weekly", priority: 0.9, lastModified: "2026-03-06" },
+        { path: "/communication-coaching", changeFrequency: "weekly", priority: 0.9, lastModified: "2026-03-06" },
+        { path: "/relationship-reset", changeFrequency: "weekly", priority: 0.9, lastModified: "2026-03-06" },
+        { path: "/blog", changeFrequency: "daily", priority: 0.85, lastModified: "2026-03-06" },
+        { path: "/about", changeFrequency: "monthly", priority: 0.7, lastModified: "2026-03-06" },
+        { path: "/contact", changeFrequency: "monthly", priority: 0.8, lastModified: "2026-03-06" },
+        { path: "/privacy-policy", changeFrequency: "yearly", priority: 0.3, lastModified: "2026-03-06" },
+        { path: "/terms-and-conditions", changeFrequency: "yearly", priority: 0.3, lastModified: "2026-03-06" },
     ];
 
     const staticEntries = staticRoutes.map(({ path, changeFrequency, priority, lastModified }) => ({

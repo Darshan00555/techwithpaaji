@@ -16,7 +16,7 @@ export async function GET() {
       <description><![CDATA[${post.description}]]></description>
       <pubDate>${pubDate}</pubDate>
       <category><![CDATA[${post.category}]]></category>
-      <author>contact@techwithpaaji.in (${post.author})</author>
+      <author>darshan.ntg@gmail.com (${post.author})</author>
     </item>`;
     })
     .join("");
@@ -26,7 +26,7 @@ export async function GET() {
   <channel>
     <title>${SITE_NAME} — Relationship Advice Blog India</title>
     <link>${SITE_URL}</link>
-    <description>88+ expert relationship advice articles on breakup recovery, communication coaching, trust rebuilding, and emotional intelligence for India — by Paaji Connect.</description>
+    <description>108+ expert relationship advice articles on breakup recovery, communication coaching, trust rebuilding, and emotional intelligence for India — by Paaji Connect.</description>
     <language>en-IN</language>
     <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
     <atom:link href="${SITE_URL}/feed.xml" rel="self" type="application/rss+xml"/>

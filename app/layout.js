@@ -12,7 +12,7 @@ import FloatingCTA from "../components/FloatingCTA";
 
 const siteTitle = "Paaji Connect | Relationship Coach in India";
 const siteDescription =
-  "Paaji Connect is a relationship coaching platform in India for breakup recovery, communication coaching for couples, and trust rebuilding support.";
+  "Paaji Connect is India's leading relationship coaching platform with 108+ expert articles on breakup recovery, communication coaching, and trust rebuilding.";
 
 export const metadata = {
   metadataBase: new URL(SITE_URL),
@@ -21,9 +21,6 @@ export const metadata = {
     template: "%s | Paaji Connect",
   },
   description: siteDescription,
-  alternates: {
-    canonical: "/",
-  },
   keywords: [
     "relationship coach in India",
     "breakup recovery coach India",
@@ -72,13 +69,14 @@ export const metadata = {
       { url: '/logo.png', sizes: '32x32', type: 'image/png' },
       { url: '/logo.png', sizes: '16x16', type: 'image/png' }
     ],
-    apple: { url: '/logo.png', sizes: '180x180', type: 'image/png' },
-    other: [
-      { rel: 'icon', url: '/logo.png', sizes: '192x192', type: 'image/png' },
-      { rel: 'icon', url: '/logo.png', sizes: '512x512', type: 'image/png' }
-    ]
+    apple: [
+      { url: '/logo.png', sizes: '180x180', type: 'image/png' }
+    ],
+    shortcut: ['/logo.png'],
   },
-  category: "relationship coaching"
+  manifest: '/manifest.webmanifest',
+  category: "relationship coaching",
+  themeColor: "#0F3D3E"
 };
 
 const organizationSchema = {
@@ -144,6 +142,11 @@ const websiteSchema = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
+      </head>
       <body className="antialiased">
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-4E8BPW9F4S"

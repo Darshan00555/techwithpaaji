@@ -6,9 +6,9 @@ import { getAllPosts } from "../../lib/mdxUtils";
 import { OG_IMAGE, SITE_NAME, SITE_URL } from "../../lib/seo";
 
 export const metadata = {
-  title: "Relationship Advice Blog India | 88+ Expert Articles",
+  title: "Relationship Advice Blog India | 108+ Expert Articles",
   description:
-    "Read 88+ long-form relationship advice articles in India on breakup recovery, communication coaching for couples, trust rebuilding, love bombing, attachment styles, and emotional intelligence. Expert guidance by Paaji Connect.",
+    "Read 108+ long-form relationship advice articles in India on breakup recovery, communication coaching for couples, trust rebuilding, love bombing, attachment styles, and emotional intelligence. Expert guidance by Paaji Connect.",
   keywords: [
     "relationship advice India",
     "online relationship coaching India",
@@ -27,9 +27,9 @@ export const metadata = {
     canonical: "/blog"
   },
   openGraph: {
-    title: "Relationship Advice Blog India | 88+ Expert Articles | Paaji Connect",
+    title: "Relationship Advice Blog India | 108+ Expert Articles | Paaji Connect",
     description:
-      "88+ authority relationship articles: communication coaching, trust repair, breakup recovery, love bombing, attachment styles and more.",
+      "108+ authority relationship articles: communication coaching, trust repair, breakup recovery, love bombing, attachment styles and more.",
     url: `${SITE_URL}/blog`,
     siteName: SITE_NAME,
     type: "website",
@@ -45,7 +45,7 @@ export const metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Relationship Advice Blog India | Paaji Connect",
-    description: "88+ expert relationship articles covering breakup recovery, communication, trust, and more.",
+    description: "108+ expert relationship articles covering breakup recovery, communication, trust, and more.",
     images: [OG_IMAGE]
   }
 };
@@ -60,7 +60,7 @@ export default function BlogIndexPage() {
     name: `${SITE_NAME} Relationship Advice Blog`,
     url: `${SITE_URL}/blog`,
     description:
-      "88+ practical, long-form relationship advice articles covering breakup recovery, communication skills, trust repair, love bombing, attachment styles, and emotional intelligence for couples and individuals in India.",
+      "108+ practical, long-form relationship advice articles covering breakup recovery, communication skills, trust repair, love bombing, attachment styles, and emotional intelligence for couples and individuals in India.",
     publisher: {
       "@type": "Organization",
       name: SITE_NAME,
@@ -93,7 +93,7 @@ export default function BlogIndexPage() {
                 Actionable Relationship Advice for Couples and Individuals in India
               </h1>
               <p className="mt-5 max-w-3xl text-sm text-[#0E1E1E]/80 sm:text-base md:text-lg">
-                88+ expert articles on breakup recovery, communication coaching for couples,
+                108+ expert articles on breakup recovery, communication coaching for couples,
                 trust rebuilding, love bombing, attachment styles, toxic relationships,
                 and long-term relationship growth strategy — by Paaji Connect, India&apos;s relationship coaching platform.
               </p>
