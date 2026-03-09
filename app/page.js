@@ -195,7 +195,7 @@ export default function HomePage() {
               </div>
               <div style={{ marginTop: "1.5rem" }}>
                 <Link href="/blog" className="premium-button" style={{ background: "#0F3D3E", color: "#fff", display: "inline-flex" }}>
-                  Read All 108+ Articles →
+                  Read All 133+ Articles →
                 </Link>
               </div>
             </div>

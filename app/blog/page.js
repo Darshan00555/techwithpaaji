@@ -6,11 +6,12 @@ import { getAllPosts } from "../../lib/mdxUtils";
 import { OG_IMAGE, SITE_NAME, SITE_URL } from "../../lib/seo";
 
 export const metadata = {
-  title: "Relationship Advice Blog India | 108+ Expert Articles",
+  title: "Relationship Advice Blog India | 133+ Expert Articles",
   description:
-    "Read 108+ long-form relationship advice articles in India on breakup recovery, communication coaching for couples, trust rebuilding, love bombing, attachment styles, and emotional intelligence. Expert guidance by Paaji Connect.",
+    "Read 133+ long-form relationship advice articles in India on breakup recovery, intentional dating, gaslighting, attachment theory, divorce trends, Gen Alpha dating, communication coaching, trust rebuilding, love bombing, and emotional intelligence. Expert guidance by Paaji Connect.",
   keywords: [
-    "relationship advice India",
+    "relationship advice India 2026",
+    "intentional dating India 2026",
     "online relationship coaching India",
     "how to fix relationship problems",
     "how to rebuild trust after breakup",
@@ -18,8 +19,15 @@ export const metadata = {
     "relationship conflict resolution",
     "breakup recovery India",
     "toxic relationship signs",
+    "gaslighting relationship India",
+    "attachment theory India 2026",
     "love bombing India",
-    "attachment styles India",
+    "dating app fatigue India 2026",
+    "divorce rate India 2026",
+    "second marriage India 2026",
+    "Gen Alpha dating India 2026",
+    "relationship mental health India",
+    "narcissism Indian dating 2026",
     "relationship coach India blog",
     "relationship tips India 2026"
   ],
@@ -27,9 +35,9 @@ export const metadata = {
     canonical: "/blog"
   },
   openGraph: {
-    title: "Relationship Advice Blog India | 108+ Expert Articles | Paaji Connect",
+    title: "Relationship Advice Blog India | 133+ Expert Articles | Paaji Connect",
     description:
-      "108+ authority relationship articles: communication coaching, trust repair, breakup recovery, love bombing, attachment styles and more.",
+      "133+ authority relationship articles: intentional dating, gaslighting signs, attachment theory, divorce trends India 2026, communication coaching, trust repair, breakup recovery, love bombing, and more.",
     url: `${SITE_URL}/blog`,
     siteName: SITE_NAME,
     type: "website",
@@ -45,7 +53,7 @@ export const metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Relationship Advice Blog India | Paaji Connect",
-    description: "108+ expert relationship articles covering breakup recovery, communication, trust, and more.",
+    description: "133+ expert relationship articles covering intentional dating 2026, gaslighting, attachment theory, divorce trends, breakup recovery, communication, trust, and more.",
     images: [OG_IMAGE]
   }
 };
@@ -60,7 +68,7 @@ export default function BlogIndexPage() {
     name: `${SITE_NAME} Relationship Advice Blog`,
     url: `${SITE_URL}/blog`,
     description:
-      "108+ practical, long-form relationship advice articles covering breakup recovery, communication skills, trust repair, love bombing, attachment styles, and emotional intelligence for couples and individuals in India.",
+      "133+ practical, long-form relationship advice articles covering intentional dating 2026, gaslighting, attachment theory, divorce trends India, breakup recovery, communication skills, trust repair, love bombing, attachment styles, and emotional intelligence for couples and individuals in India.",
     publisher: {
       "@type": "Organization",
       name: SITE_NAME,
@@ -90,11 +98,11 @@ export default function BlogIndexPage() {
                 Paaji Connect Relationship Advice Blog India
               </p>
               <h1 className="mt-4 max-w-4xl text-[1.75rem] font-semibold text-[#0F3D3E] leading-[1.2] sm:text-3xl md:text-6xl">
-                Actionable Relationship Advice for Couples and Individuals in India
+                Actionable Relationship Advice for Couples and Singles in India — March 2026
               </h1>
               <p className="mt-5 max-w-3xl text-sm text-[#0E1E1E]/80 sm:text-base md:text-lg">
-                108+ expert articles on breakup recovery, communication coaching for couples,
-                trust rebuilding, love bombing, attachment styles, toxic relationships,
+                133+ expert articles on intentional dating, gaslighting, attachment theory, divorce trends, breakup recovery, communication coaching for couples,
+                trust rebuilding, love bombing, Gen Alpha dating, narcissism, second marriage, toxic relationships,
                 and long-term relationship growth strategy — by Paaji Connect, India&apos;s relationship coaching platform.
               </p>
             </div>

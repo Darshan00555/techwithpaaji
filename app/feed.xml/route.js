@@ -26,7 +26,7 @@ export async function GET() {
   <channel>
     <title>${SITE_NAME} — Relationship Advice Blog India</title>
     <link>${SITE_URL}</link>
-    <description>108+ expert relationship advice articles on breakup recovery, communication coaching, trust rebuilding, and emotional intelligence for India — by Paaji Connect.</description>
+    <description>133+ expert relationship advice articles on intentional dating, gaslighting, attachment theory, divorce trends, Gen Alpha dating, breakup recovery, communication coaching, trust rebuilding, and emotional intelligence for India — by Paaji Connect.</description>
     <language>en-IN</language>
     <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
     <atom:link href="${SITE_URL}/feed.xml" rel="self" type="application/rss+xml"/>

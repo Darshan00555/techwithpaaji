@@ -12,7 +12,7 @@ import FloatingCTA from "../components/FloatingCTA";
 
 const siteTitle = "Paaji Connect | Relationship Coach in India";
 const siteDescription =
-  "Paaji Connect is India's leading relationship coaching platform with 108+ expert articles on breakup recovery, communication coaching, and trust rebuilding.";
+  "Paaji Connect is India's leading relationship coaching platform with 133+ expert articles on breakup recovery, intentional dating 2026, gaslighting signs, attachment theory, divorce trends, communication coaching, and trust rebuilding.";
 
 export const metadata = {
   metadataBase: new URL(SITE_URL),
