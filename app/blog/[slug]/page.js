@@ -153,6 +153,7 @@ export default async function BlogPostPage({ params }) {
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
+    "@id": `${pageUrl}/#breadcrumb`,
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
       { "@type": "ListItem", position: 2, name: "Blog", item: `${SITE_URL}/blog` },
@@ -164,6 +165,7 @@ export default async function BlogPostPage({ params }) {
   const articleSchema = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
+    "@id": `${pageUrl}/#main-article`,
     headline: post.title,
     description: post.description,
     image: `${SITE_URL}${OG_IMAGE}`,
