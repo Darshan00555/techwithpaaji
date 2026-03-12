@@ -10,9 +10,9 @@ import "./globals.css";
 import { OG_IMAGE, SITE_NAME, SITE_URL } from "../lib/seo";
 import FloatingCTA from "../components/FloatingCTA";
 
-const siteTitle = "Paaji Connect | Relationship Coach in India";
+const siteTitle = "Expert Relationship Coach in India | Paaji Connect";
 const siteDescription =
-  "Paaji Connect is India's leading relationship coaching platform with 133+ expert articles on breakup recovery, intentional dating 2026, gaslighting signs, attachment theory, divorce trends, communication coaching, and trust rebuilding.";
+  "Paaji Connect is India's premier relationship coaching platform offering breakup recovery, communication coaching, and trust rebuilding programs.";
 
 export const metadata = {
   metadataBase: new URL(SITE_URL),
@@ -94,7 +94,10 @@ const organizationSchema = {
   sameAs: [
     SITE_URL,
     "https://www.instagram.com/paaji.connect",
-    "https://www.youtube.com/@paajiconnect"
+    "https://www.youtube.com/@paajiconnect",
+    "https://www.facebook.com/paajiconnect",
+    "https://x.com/paajiconnect",
+    "https://www.linkedin.com/company/paajiconnect"
   ],
   foundingDate: "2024",
   foundingLocation: {

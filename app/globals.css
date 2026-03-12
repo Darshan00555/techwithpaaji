@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+@source "../app";
+@source "../components";
+@source "../lib";
+
 :root {
   --pc-primary: #0f3d3e;
   --pc-accent: #f4a261;

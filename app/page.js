@@ -98,9 +98,9 @@ const webSiteSchema = {
 };
 
 export const metadata = {
-  title: "Relationship Coach in India | Paaji Connect",
+  title: "Expert Relationship Coach in India | Paaji Connect",
   description:
-    "Work with Paaji Connect — India's trusted relationship coach for breakup recovery, communication coaching for couples, trust rebuilding, and relationship reset programs. Private online sessions.",
+    "Work with Paaji Connect — India's trusted relationship coach for breakup recovery, communication coaching for couples, and trust rebuilding.",
   keywords: [
     "relationship coach in India",
     "relationship consultant India",
@@ -118,9 +118,9 @@ export const metadata = {
     canonical: "/"
   },
   openGraph: {
-    title: "Relationship Coach in India | Paaji Connect",
+    title: "Expert Relationship Coach in India | Paaji Connect",
     description:
-      "India's trusted relationship coaching platform — breakup recovery, communication coaching, trust repair, and relationship reset. Private online sessions.",
+      "India's trusted relationship coaching platform — breakup recovery, communication coaching, trust repair, and relationship reset programs.",
     url: SITE_URL,
     siteName: SITE_NAME,
     type: "website",
@@ -135,8 +135,8 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Relationship Coach in India | Paaji Connect",
-    description: "Breakup recovery, communication coaching & trust rebuilding — private online sessions.",
+    title: "Expert Relationship Coach in India | Paaji Connect",
+    description: "Breakup recovery, communication coaching & trust rebuilding programs by Paaji Connect.",
     images: [OG_IMAGE]
   }
 };
@@ -157,44 +157,36 @@ export default function HomePage() {
           <ContactForm />
 
           {/* Latest Blog Posts — Server Rendered for SEO */}
-          <section style={{ padding: "4rem 0", background: "rgba(15,61,62,0.03)" }}>
+          <section className="py-16 bg-[#0f3d3e]/[0.03]">
             <div className="container-premium">
-              <p style={{ fontSize: "0.7rem", fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", color: "#2A9D8F", marginBottom: "0.75rem" }}>
+              <p className="text-[0.7rem] font-bold tracking-[0.2em] uppercase text-[#2A9D8F] mb-3">
                 Relationship Advice Blog India
               </p>
-              <h2 style={{ fontSize: "clamp(1.6rem, 3vw, 2.5rem)", fontWeight: 600, color: "#0F3D3E", marginBottom: "0.5rem" }}>
+              <h2 className="text-[clamp(1.6rem,3vw,2.5rem)] font-semibold text-[#0F3D3E] mb-2">
                 Latest Expert Articles
               </h2>
-              <p style={{ fontSize: "0.95rem", color: "rgba(14,30,30,0.7)", marginBottom: "2rem", maxWidth: "600px" }}>
+              <p className="text-[0.95rem] text-[#0e1e1e]/70 mb-8 max-w-[600px]">
                 In-depth relationship advice on breakup recovery, communication, trust, and emotional intelligence — all by Paaji Connect.
               </p>
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: "1rem" }}>
+              <div className="grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-4">
                 {latestPosts.map((post) => (
                   <Link
                     key={post.slug}
                     href={`/blog/${post.slug}`}
-                    style={{
-                      display: "block",
-                      padding: "1.25rem",
-                      borderRadius: "1rem",
-                      border: "1.5px solid rgba(15,61,62,0.12)",
-                      background: "rgba(255,255,255,0.72)",
-                      textDecoration: "none",
-                      transition: "border-color 0.2s ease, box-shadow 0.2s ease"
-                    }}
+                    className="block p-5 rounded-2xl border-[1.5px] border-[#0f3d3e]/[0.12] bg-white/72 no-underline transition-all duration-200 ease-in-out hover:border-[#0f3d3e]/30 hover:shadow-sm"
                   >
-                    <p style={{ fontSize: "0.65rem", fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "#2A9D8F", marginBottom: "0.5rem" }}>
+                    <p className="text-[0.65rem] font-bold tracking-[0.14em] uppercase text-[#2A9D8F] mb-2">
                       {post.category}
                     </p>
-                    <h3 style={{ fontSize: "0.95rem", fontWeight: 600, color: "#0F3D3E", lineHeight: 1.4, marginBottom: "0.4rem" }}>
+                    <h3 className="text-[0.95rem] font-semibold text-[#0F3D3E] leading-[1.4] mb-1.5">
                       {post.title}
                     </h3>
-                    <p style={{ fontSize: "0.78rem", color: "rgba(14,30,30,0.55)" }}>{post.readTime}</p>
+                    <p className="text-[0.78rem] text-[#0e1e1e]/[0.55]">{post.readTime}</p>
                   </Link>
                 ))}
               </div>
-              <div style={{ marginTop: "1.5rem" }}>
-                <Link href="/blog" className="premium-button" style={{ background: "#0F3D3E", color: "#fff", display: "inline-flex" }}>
+              <div className="mt-6">
+                <Link href="/blog" className="premium-button bg-[#0F3D3E] text-white inline-flex">
                   Read All 133+ Articles →
                 </Link>
               </div>
