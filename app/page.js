@@ -187,7 +187,7 @@ export default function HomePage() {
               </div>
               <div className="mt-6">
                 <Link href="/blog" className="premium-button bg-[#0F3D3E] text-white inline-flex">
-                  Read All 133+ Articles →
+                  Read All 143+ Articles →
                 </Link>
               </div>
             </div>

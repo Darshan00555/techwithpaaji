@@ -1,4 +1,4 @@
-﻿import Footer from "../../components/Footer";
+import Footer from "../../components/Footer";
 import Navbar from "../../components/Navbar";
 import PageTransition from "../../components/PageTransition";
 import BlogFilterClient from "../../components/BlogFilterClient";
@@ -6,9 +6,9 @@ import { getAllPosts } from "../../lib/mdxUtils";
 import { OG_IMAGE, SITE_NAME, SITE_URL } from "../../lib/seo";
 
 export const metadata = {
-  title: "Relationship Advice Blog India | 133+ Expert Articles",
+  title: "Relationship Advice Blog India | 143+ Expert Articles",
   description:
-    "Read 133+ long-form relationship advice articles in India on breakup recovery, intentional dating, gaslighting, attachment theory, divorce trends, Gen Alpha dating, communication coaching, trust rebuilding, love bombing, and emotional intelligence. Expert guidance by Paaji Connect.",
+    "Read 143+ long-form relationship advice articles in India on breakup recovery, intentional dating, gaslighting, attachment theory, divorce trends, Gen Alpha dating, communication coaching, trust rebuilding, love bombing, and emotional intelligence. Expert guidance by Paaji Connect.",
   keywords: [
     "relationship advice India 2026",
     "intentional dating India 2026",
