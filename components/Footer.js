@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { getAllPosts } from "../lib/mdxUtils";
+import { SITE_URL } from "../lib/seo";
 
 const quickLinks = [
   { label: "Home", href: "/" },
@@ -136,7 +137,7 @@ export default function Footer() {
                 +91 97738 17031
               </a>
               <a
-                href="https://www.techwithpaaji.in"
+                href={SITE_URL}
                 className="flex items-center gap-2.5 text-sm text-white/72 hover:text-[#F4A261] transition-colors duration-200"
               >
                 <svg className="h-4 w-4 shrink-0 text-[#2A9D8F]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -167,7 +168,7 @@ export default function Footer() {
               </Link>
             </div>
           </div>
-          {/* Recent Articles — SEO internal linking for Googlebot */}
+          {/* Recent Articles */}
           <div className="sm:col-span-2 md:col-span-1">
             <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#F4A261] mb-4">
               Recent Articles

@@ -180,7 +180,7 @@ export default async function BlogPostPage({ params }) {
       logo: { "@type": "ImageObject", url: `${SITE_URL}/logo.png` }
     },
     datePublished: post.date,
-    dateModified: post.date,
+    dateModified: post.updatedAt || post.date,
     mainEntityOfPage: pageUrl,
     keywords: post.keywords.join(", "),
     articleSection: post.category,

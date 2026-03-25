@@ -3,6 +3,7 @@ import { SITE_URL, SITE_NAME } from "../../lib/seo";
 
 export async function GET() {
   const posts = getAllPosts();
+  const totalPosts = posts.length;
 
   const items = posts
     .map((post) => {
@@ -26,7 +27,7 @@ export async function GET() {
   <channel>
     <title>${SITE_NAME} — Relationship Advice Blog India</title>
     <link>${SITE_URL}</link>
-    <description>163+ expert relationship advice articles on intentional dating, gaslighting, attachment theory, divorce trends, Gen Alpha dating, breakup recovery, communication coaching, trust rebuilding, and emotional intelligence for India — by Paaji Connect.</description>
+    <description>${totalPosts}+ expert relationship advice articles on intentional dating, gaslighting, attachment theory, divorce trends, Gen Alpha dating, breakup recovery, communication coaching, trust rebuilding, and emotional intelligence for India — by Paaji Connect.</description>
     <language>en-IN</language>
     <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
     <atom:link href="${SITE_URL}/feed.xml" rel="self" type="application/rss+xml"/>

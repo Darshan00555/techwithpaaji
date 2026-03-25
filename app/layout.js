@@ -75,8 +75,11 @@ export const metadata = {
     shortcut: ['/logo.png'],
   },
   manifest: '/manifest.webmanifest',
-  category: "relationship coaching",
-  themeColor: "#0F3D3E"
+  category: "relationship coaching"
+};
+
+export const viewport = {
+  themeColor: "#0F3D3E",
 };
 
 const organizationSchema = {

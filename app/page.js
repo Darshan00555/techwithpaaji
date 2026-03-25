@@ -142,7 +142,9 @@ export const metadata = {
 };
 
 export default function HomePage() {
-  const latestPosts = getAllPosts().slice(0, 6);
+  const allPosts = getAllPosts();
+  const latestPosts = allPosts.slice(0, 6);
+  const totalPosts = allPosts.length;
 
   return (
     <div className="page-shell">
@@ -187,7 +189,7 @@ export default function HomePage() {
               </div>
               <div className="mt-6">
                 <Link href="/blog" className="premium-button bg-[#0F3D3E] text-white inline-flex">
-                  Read All 143+ Articles →
+                  Read All {totalPosts}+ Articles →
                 </Link>
               </div>
             </div>
@@ -213,4 +215,3 @@ export default function HomePage() {
     </div>
   );
 }
-

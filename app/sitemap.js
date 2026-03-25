@@ -1,32 +1,36 @@
+import fs from "fs";
+import path from "path";
 import { getAllPosts } from "../lib/mdxUtils";
 import { SITE_URL } from "../lib/seo";
 
-export default function sitemap() {
-    const now = new Date();
-    // Priority map: homepage = 1.0, service pages = 0.9, blog = 0.85, blog posts = 0.8
-    const staticRoutes = [
-        { path: "", changeFrequency: "daily", priority: 1.0, lastModified: "2026-03-13" },
-        { path: "/services", changeFrequency: "weekly", priority: 0.9, lastModified: "2026-03-13" },
-        { path: "/breakup-recovery", changeFrequency: "weekly", priority: 0.9, lastModified: "2026-03-13" },
-        { path: "/communication-coaching", changeFrequency: "weekly", priority: 0.9, lastModified: "2026-03-13" },
-        { path: "/relationship-reset", changeFrequency: "weekly", priority: 0.9, lastModified: "2026-03-13" },
-        { path: "/blog", changeFrequency: "daily", priority: 0.85, lastModified: "2026-03-13" },
-        { path: "/about", changeFrequency: "monthly", priority: 0.7, lastModified: "2026-03-13" },
-        { path: "/contact", changeFrequency: "monthly", priority: 0.8, lastModified: "2026-03-13" },
-        { path: "/privacy-policy", changeFrequency: "yearly", priority: 0.3, lastModified: "2026-03-13" },
-        { path: "/terms-and-conditions", changeFrequency: "yearly", priority: 0.3, lastModified: "2026-03-13" },
-    ];
+const staticRoutes = [
+    { route: "", changeFrequency: "daily", priority: 1.0, file: "app/page.js" },
+    { route: "/services", changeFrequency: "weekly", priority: 0.9, file: "app/services/page.js" },
+    { route: "/breakup-recovery", changeFrequency: "weekly", priority: 0.9, file: "app/breakup-recovery/page.js" },
+    { route: "/communication-coaching", changeFrequency: "weekly", priority: 0.9, file: "app/communication-coaching/page.js" },
+    { route: "/relationship-reset", changeFrequency: "weekly", priority: 0.9, file: "app/relationship-reset/page.js" },
+    { route: "/blog", changeFrequency: "daily", priority: 0.85, file: "app/blog/page.js" },
+    { route: "/about", changeFrequency: "monthly", priority: 0.7, file: "app/about/page.js" },
+    { route: "/contact", changeFrequency: "monthly", priority: 0.8, file: "app/contact/page.js" },
+    { route: "/privacy-policy", changeFrequency: "yearly", priority: 0.3, file: "app/privacy-policy/page.js" },
+    { route: "/terms-and-conditions", changeFrequency: "yearly", priority: 0.3, file: "app/terms-and-conditions/page.js" },
+];
 
-    const staticEntries = staticRoutes.map(({ path, changeFrequency, priority, lastModified }) => ({
-        url: `${SITE_URL}${path}`,
-        lastModified: new Date(lastModified),
+function getFileModifiedTime(relativePath) {
+    return fs.statSync(path.join(process.cwd(), relativePath)).mtime;
+}
+
+export default function sitemap() {
+    const staticEntries = staticRoutes.map(({ route, changeFrequency, priority, file }) => ({
+        url: `${SITE_URL}${route}`,
+        lastModified: getFileModifiedTime(file),
         changeFrequency,
         priority,
     }));
 
     const blogEntries = getAllPosts().map((post) => ({
         url: `${SITE_URL}/blog/${post.slug}`,
-        lastModified: new Date(post.date || now),
+        lastModified: post.updatedAt || post.date,
         changeFrequency: "weekly",
         priority: 0.8,
     }));

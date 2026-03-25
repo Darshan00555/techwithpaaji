@@ -3,6 +3,9 @@ import React from "react";
 export const metadata = {
     title: "Privacy Policy",
     description: "Privacy Policy for Paaji Connect - Learn how we collect, use, and protect your data.",
+    alternates: {
+        canonical: "/privacy-policy",
+    },
 };
 
 export default function PrivacyPolicy() {

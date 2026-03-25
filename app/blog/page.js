@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Footer from "../../components/Footer";
 import Navbar from "../../components/Navbar";
 import PageTransition from "../../components/PageTransition";
@@ -5,10 +6,21 @@ import BlogFilterClient from "../../components/BlogFilterClient";
 import { getAllPosts } from "../../lib/mdxUtils";
 import { OG_IMAGE, SITE_NAME, SITE_URL } from "../../lib/seo";
 
+const allPosts = getAllPosts();
+const totalPosts = allPosts.length;
+
+function formatDate(date) {
+  return new Intl.DateTimeFormat("en-IN", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  }).format(new Date(date));
+}
+
 export const metadata = {
-  title: "Relationship Advice Blog India | 143+ Expert Articles",
+  title: `Relationship Advice Blog India | ${totalPosts}+ Expert Articles`,
   description:
-    "Read 143+ long-form relationship advice articles in India on breakup recovery, intentional dating, gaslighting, attachment theory, divorce trends, Gen Alpha dating, communication coaching, trust rebuilding, love bombing, and emotional intelligence. Expert guidance by Paaji Connect.",
+    `Read ${totalPosts}+ long-form relationship advice articles in India on breakup recovery, intentional dating, gaslighting, attachment theory, divorce trends, Gen Alpha dating, communication coaching, trust rebuilding, love bombing, and emotional intelligence. Expert guidance by Paaji Connect.`,
   keywords: [
     "relationship advice India 2026",
     "intentional dating India 2026",
@@ -35,9 +47,9 @@ export const metadata = {
     canonical: "/blog"
   },
   openGraph: {
-    title: "Relationship Advice Blog India | 133+ Expert Articles | Paaji Connect",
+    title: `Relationship Advice Blog India | ${totalPosts}+ Expert Articles | Paaji Connect`,
     description:
-      "133+ authority relationship articles: intentional dating, gaslighting signs, attachment theory, divorce trends India 2026, communication coaching, trust repair, breakup recovery, love bombing, and more.",
+      `${totalPosts}+ authority relationship articles: intentional dating, gaslighting signs, attachment theory, divorce trends India 2026, communication coaching, trust repair, breakup recovery, love bombing, and more.`,
     url: `${SITE_URL}/blog`,
     siteName: SITE_NAME,
     type: "website",
@@ -53,13 +65,13 @@ export const metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Relationship Advice Blog India | Paaji Connect",
-    description: "133+ expert relationship articles covering intentional dating 2026, gaslighting, attachment theory, divorce trends, breakup recovery, communication, trust, and more.",
+    description: `${totalPosts}+ expert relationship articles covering intentional dating 2026, gaslighting, attachment theory, divorce trends, breakup recovery, communication, trust, and more.`,
     images: [OG_IMAGE]
   }
 };
 
 export default function BlogIndexPage() {
-  const posts = getAllPosts();
+  const posts = allPosts;
 
   // Blog listing schema — helps Google parse the index as a blog collection
   const blogListSchema = {
@@ -68,7 +80,7 @@ export default function BlogIndexPage() {
     name: `${SITE_NAME} Relationship Advice Blog`,
     url: `${SITE_URL}/blog`,
     description:
-      "133+ practical, long-form relationship advice articles covering intentional dating 2026, gaslighting, attachment theory, divorce trends India, breakup recovery, communication skills, trust repair, love bombing, attachment styles, and emotional intelligence for couples and individuals in India.",
+      `${totalPosts}+ practical, long-form relationship advice articles covering intentional dating 2026, gaslighting, attachment theory, divorce trends India, breakup recovery, communication skills, trust repair, love bombing, attachment styles, and emotional intelligence for couples and individuals in India.`,
     publisher: {
       "@type": "Organization",
       name: SITE_NAME,
@@ -98,42 +110,55 @@ export default function BlogIndexPage() {
                 Paaji Connect Relationship Advice Blog India
               </p>
               <h1 className="mt-4 max-w-4xl text-[1.75rem] font-semibold text-[#0F3D3E] leading-[1.2] sm:text-3xl md:text-6xl">
-                Actionable Relationship Advice for Couples and Singles in India — March 2026
+                Actionable Relationship Advice for Couples and Singles in India — 2026
               </h1>
               <p className="mt-5 max-w-3xl text-sm text-[#0E1E1E]/80 sm:text-base md:text-lg">
-                133+ expert articles on intentional dating, gaslighting, attachment theory, divorce trends, breakup recovery, communication coaching for couples,
+                {totalPosts}+ expert articles on intentional dating, gaslighting, attachment theory, divorce trends, breakup recovery, communication coaching for couples,
                 trust rebuilding, love bombing, Gen Alpha dating, narcissism, second marriage, toxic relationships,
                 and long-term relationship growth strategy — by Paaji Connect, India&apos;s relationship coaching platform.
               </p>
             </div>
           </section>
 
-          {/* ── CRITICAL SEO: Server-rendered links for ALL posts (Googlebot crawl) ── */}
-          {/* This section is visually hidden from users but fully readable by Googlebot */}
-          {/* BlogFilterClient is 'use client' so Googlebot cannot see those links */}
-          <nav
-            aria-label="All blog articles index"
-            style={{
-              position: "absolute",
-              width: "1px",
-              height: "1px",
-              overflow: "hidden",
-              clip: "rect(0,0,0,0)",
-              whiteSpace: "nowrap",
-            }}
-          >
-            <h2>All Relationship Advice Articles</h2>
-            <ul>
-              {posts.map((post) => (
-                <li key={post.slug}>
-                  <a href={`/blog/${post.slug}`}>{post.title}</a>
-                </li>
-              ))}
-            </ul>
-          </nav>
 
           {/* ── Search + Filter + Blog Grid (Client Component) ── */}
           <BlogFilterClient posts={posts} />
+
+          <section className="section-pad pt-0">
+            <div className="container-premium">
+              <div className="glass-card p-6 sm:p-8">
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#2A9D8F]">
+                  Full Archive
+                </p>
+                <h2 className="mt-4 text-2xl font-semibold text-[#0F3D3E] sm:text-4xl">
+                  Browse All {totalPosts} Articles
+                </h2>
+                <p className="mt-4 max-w-3xl text-sm text-[#0E1E1E]/78 sm:text-base">
+                  Every article is listed below in standard HTML links, so readers can browse the complete archive without relying on client-side filters.
+                </p>
+
+                <div className="mt-8 grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+                  {posts.map((post) => (
+                    <Link
+                      key={post.slug}
+                      href={`/blog/${post.slug}`}
+                      className="rounded-2xl border border-[#0F3D3E]/10 bg-white/70 px-4 py-4 transition-colors duration-200 hover:border-[#2A9D8F]/45 hover:bg-white"
+                    >
+                      <p className="text-[0.65rem] font-semibold uppercase tracking-[0.16em] text-[#2A9D8F]">
+                        {post.category}
+                      </p>
+                      <h3 className="mt-2 text-sm font-semibold leading-snug text-[#0F3D3E] sm:text-base">
+                        {post.title}
+                      </h3>
+                      <p className="mt-2 text-xs text-[#0E1E1E]/58">
+                        {formatDate(post.date)} · {post.readTime}
+                      </p>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </section>
         </main>
       </PageTransition>
 

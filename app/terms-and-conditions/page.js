@@ -3,6 +3,9 @@ import React from "react";
 export const metadata = {
     title: "Terms and Conditions",
     description: "Terms and Conditions for Paaji Connect - Read our service scope, limitations, and user agreements.",
+    alternates: {
+        canonical: "/terms-and-conditions",
+    },
 };
 
 export default function TermsAndConditions() {
