@@ -158,6 +158,86 @@ export default function HomePage() {
           <FAQ />
           <ContactForm />
 
+          {/* ── PILLAR CONTENT SECTION: Top 5 Must-Read Guides ── */}
+          <section className="py-20 bg-white relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-[#2A9D8F]/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+            <div className="container-premium relative">
+              <div className="max-w-3xl mb-12">
+                <p className="text-[0.7rem] font-bold tracking-[0.25em] uppercase text-[#2A9D8F] mb-4">
+                  Foundational Knowledge
+                </p>
+                <h2 className="text-[clamp(1.8rem,4vw,3.2rem)] font-semibold text-[#0F3D3E] leading-[1.1] mb-6">
+                  The Must-Read Relationship Guides for 2026
+                </h2>
+                <p className="text-[1.05rem] text-[#0e1e1e]/75 leading-relaxed">
+                  Deep-dive into our most comprehensive research and frameworks for building secure, 
+                  intentional, and emotionally intelligent partnerships in modern India.
+                </p>
+              </div>
+
+              <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                {[
+                  {
+                    title: "The Ultimate Guide to Attachment Styles in India",
+                    slug: "attachment-styles-relationships-india-guide",
+                    desc: "Understand how your childhood wiring affects your adult intimacy and how to move toward security."
+                  },
+                  {
+                    title: "Dealing with Emotionally Unavailable Partners",
+                    slug: "emotionally-unavailable-partner-india-signs-and-what-to-do",
+                    desc: "How to spot the signs early and protect your emotional health in the Indian dating scene."
+                  },
+                  {
+                    title: "How to Set Healthy Boundaries with Family & Partners",
+                    slug: "how-to-set-healthy-boundaries-in-relationship-india",
+                    desc: "Practical frameworks for protecting your peace without destroying your connections."
+                  },
+                  {
+                    title: "Recognizing Gaslighting: Signs & Recovery 2026",
+                    slug: "gaslighting-relationship-india-2026-signs",
+                    desc: "A protective guide to identifying psychological manipulation and reclaiming your reality."
+                  },
+                  {
+                    title: "The Silent Treatment: Emotional Abuse or Space?",
+                    slug: "silent-treatment-relationship-emotional-abuse-india",
+                    desc: "Decoding the psychology of silence and how to effectively repair high-conflict situations."
+                  }
+                ].map((pillar, idx) => (
+                  <Link 
+                    key={pillar.slug}
+                    href={`/blog/${pillar.slug}`}
+                    className={`group relative p-8 rounded-3xl border border-[#0F3D3E]/10 bg-white transition-all duration-500 hover:border-[#2A9D8F]/30 hover:shadow-[0_20px_50px_rgba(11,46,47,0.08)] ${idx === 0 ? 'lg:col-span-2 lg:row-span-1' : ''}`}
+                  >
+                    <div className="flex flex-col h-full">
+                      <div className="flex items-center justify-between mb-4">
+                        <span className="text-[0.6rem] font-bold text-[#2A9D8F] tracking-widest uppercase opacity-70">
+                          Pillar Guide 0{idx + 1}
+                        </span>
+                        {idx === 0 && (
+                          <span className="bg-[#2A9D8F]/10 text-[#2A9D8F] text-[0.55rem] px-2.5 py-1 rounded-full font-bold uppercase tracking-wider">
+                            Most Comprehensive
+                          </span>
+                        )}
+                      </div>
+                      <h3 className={`font-semibold text-[#0F3D3E] group-hover:text-[#2A9D8F] transition-colors duration-300 ${idx === 0 ? 'text-2xl mb-4' : 'text-xl mb-3'}`}>
+                        {pillar.title}
+                      </h3>
+                      <p className="text-sm text-[#0e1e1e]/65 leading-relaxed mb-6">
+                        {pillar.desc}
+                      </p>
+                      <div className="mt-auto flex items-center text-xs font-bold text-[#0F3D3E] uppercase tracking-wider">
+                        Read full guide
+                        <svg className="ml-2 w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                        </svg>
+                      </div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </section>
+
           {/* Latest Blog Posts — Server Rendered for SEO */}
           <section className="py-16 bg-[#0f3d3e]/[0.03]">
             <div className="container-premium">

@@ -1,4 +1,4 @@
-﻿import Link from "next/link";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import Footer from "../../../components/Footer";
@@ -53,19 +53,33 @@ export async function generateMetadata({ params }) {
   }
 
   const path = `/blog/${post.slug}`;
+  
+  // SEO optimization: Natural description (max 155 chars)
+  const seoDescription = post.description.length > 155 
+    ? post.description.substring(0, 152) + "..." 
+    : post.description;
+
+  // SEO optimization: Reduce keyword stuffing (max 10 relevant keywords)
+  const cleanKeywords = post.keywords.slice(0, 10);
 
   return {
-    title: post.title,
-    description: post.description,
-    keywords: post.keywords,
+    title: `${post.title} | Paaji Connect`,
+    description: seoDescription,
+    keywords: cleanKeywords,
     alternates: { canonical: path },
     openGraph: {
       title: `${post.title} | Paaji Connect`,
-      description: post.description,
+      description: seoDescription,
       url: `${SITE_URL}${path}`,
       siteName: SITE_NAME,
       type: "article",
       images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: post.title }]
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${post.title} | Paaji Connect`,
+      description: seoDescription,
+      images: [OG_IMAGE],
     }
   };
 }
@@ -167,12 +181,13 @@ export default async function BlogPostPage({ params }) {
     "@type": "BlogPosting",
     "@id": `${pageUrl}/#main-article`,
     headline: post.title,
-    description: post.description,
+    description: post.description.substring(0, 160),
     image: `${SITE_URL}${OG_IMAGE}`,
     author: {
-      "@type": "Organization",
-      name: post.author,
-      url: SITE_URL
+      "@type": "Person",
+      name: "Paaji",
+      jobTitle: "Relationship Writer",
+      url: `${SITE_URL}/about`
     },
     publisher: {
       "@type": "Organization",
@@ -181,7 +196,10 @@ export default async function BlogPostPage({ params }) {
     },
     datePublished: post.date,
     dateModified: post.updatedAt || post.date,
-    mainEntityOfPage: pageUrl,
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": pageUrl
+    },
     keywords: post.keywords.join(", "),
     articleSection: post.category,
     inLanguage: "en-IN",
@@ -340,21 +358,36 @@ export default async function BlogPostPage({ params }) {
           {relatedPosts.length > 0 && (
             <section className="section-pad pt-0">
               <div className="container-premium">
-                <h2 className="text-xl font-semibold text-[#0F3D3E] mb-5">Related Articles</h2>
-                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                <div className="mb-8 flex items-center justify-between">
+                  <div>
+                    <p className="text-[0.65rem] font-bold tracking-[0.2em] uppercase text-[#2A9D8F] mb-2">
+                      Deepen Your Understanding
+                    </p>
+                    <h2 className="text-2xl font-semibold text-[#0F3D3E] sm:text-3xl">Related Articles</h2>
+                  </div>
+                  <Link href="/blog" className="hidden sm:inline-flex text-sm font-semibold text-[#2A9D8F] hover:text-[#0F3D3E]">
+                    View all articles →
+                  </Link>
+                </div>
+                
+                <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
                   {relatedPosts.map((relPost) => (
                     <Link
                       key={relPost.slug}
                       href={`/blog/${relPost.slug}`}
-                      className="block rounded-2xl border border-[#0F3D3E]/12 bg-white/72 p-4 transition-all duration-200 hover:border-[#2A9D8F]/40 hover:shadow-md"
+                      className="group block rounded-2xl border border-[#0F3D3E]/12 bg-white/72 p-5 transition-all duration-300 hover:border-[#2A9D8F]/40 hover:shadow-[0_10px_20px_rgba(11,46,47,0.06)]"
                     >
-                      <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#2A9D8F] mb-2">
+                      <p className="text-[0.6rem] font-bold uppercase tracking-[0.16em] text-[#2A9D8F] mb-3">
                         {relPost.category}
                       </p>
-                      <h3 className="text-sm font-semibold text-[#0F3D3E] leading-snug line-clamp-3">
+                      <h3 className="text-[0.95rem] font-semibold text-[#0F3D3E] leading-snug transition-colors duration-200 group-hover:text-[#2A9D8F]">
                         {relPost.title}
                       </h3>
-                      <p className="mt-2 text-xs text-[#0E1E1E]/60">{relPost.readTime}</p>
+                      <div className="mt-4 flex items-center gap-2 text-[0.65rem] text-[#0E1E1E]/55">
+                        <span>{relPost.readTime}</span>
+                        <span className="h-1 w-1 rounded-full bg-[#0E1E1E]/20" />
+                        <span>Read article →</span>
+                      </div>
                     </Link>
                   ))}
                 </div>

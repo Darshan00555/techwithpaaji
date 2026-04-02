@@ -1,4 +1,4 @@
-﻿import Link from "next/link";
+import Link from "next/link";
 import Footer from "../../components/Footer";
 import Navbar from "../../components/Navbar";
 import PageTransition from "../../components/PageTransition";
@@ -51,7 +51,7 @@ export default function AboutPage() {
                 Relationship Coaching Built for Real-Life Change
               </h1>
               <p className="mt-5 max-w-3xl text-base text-[#0E1E1E]/80 sm:text-lg">
-                Paaji Connect is a practical relationship coaching platform focused on emotional intelligence, communication structure, and measurable outcomes for couples and individuals across India.
+                Paaji Connect is a practical relationship coaching platform founded by Darshan Singh (popularly known as &quot;Paaji&quot;). We focus on emotional intelligence, communication structure, and measurable outcomes for couples and individuals across India.
               </p>
             </div>
           </section>
@@ -113,11 +113,13 @@ export default function AboutPage() {
                       <h3 className="text-3xl font-semibold text-[#0F3D3E] sm:text-4xl">
                         Darshan Singh
                       </h3>
-                      <div className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[#F4A261]/10 to-[#F4A261]/5 px-5 py-2">
-                        <div className="h-2 w-2 rounded-full bg-[#F4A261]" />
-                        <p className="text-sm font-semibold uppercase tracking-wider text-[#F4A261]">
-                          Director
-                        </p>
+                      <div className="flex flex-col items-center gap-2">
+                        <div className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[#F4A261]/10 to-[#F4A261]/5 px-5 py-2">
+                          <div className="h-2 w-2 rounded-full bg-[#F4A261]" />
+                          <p className="text-sm font-semibold uppercase tracking-wider text-[#F4A261]">
+                            Director & Lead Writer (&quot;Paaji&quot;)
+                          </p>
+                        </div>
                       </div>
                     </div>
 
