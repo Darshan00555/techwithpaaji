@@ -1,21 +1,22 @@
 import { google } from 'googleapis';
 import fs from 'fs';
 import path from 'path';
+import { getAllPosts } from '../lib/mdxUtils.js';
 
 // --- CONFIGURATION ---
 const KEY_PATH = path.join(process.cwd(), 'credentials.json');
-const SITEMAP_URL = 'https://techwithpaaji.in/sitemap.xml';
+const SITE_URL = 'https://techwithpaaji.in';
 
 /**
  * 1. Ensure you have a service account and downloaded the 'credentials.json' to the root directory.
  * 2. Empower the service account email in Search Console (Settings > Users and permissions > Add User).
- * 3. Run: node scripts/google-indexing.mjs
+ * 3. Run: node scripts/google-indexing.mjs <url1> <url2> ...
+ *    OR: node scripts/google-indexing.mjs --all
  */
 
 async function indexUrls() {
   if (!fs.existsSync(KEY_PATH)) {
     console.error('❌ Error: credentials.json not found in root directory.');
-    console.log('Please follow the walkthrough to set up the Google Indexing API.');
     return;
   }
 
@@ -28,18 +29,27 @@ async function indexUrls() {
   const authClient = await auth.getClient();
   google.options({ auth: authClient });
 
-  // In a real scenario, we'd fetch URLs from sitemap.xml
-  // For now, let's assume we pass them as arguments or fetch from a list
-  const urls = process.argv.slice(2);
+  let urls = process.argv.slice(2);
+
+  if (urls.includes('--all')) {
+    console.log('📂 Fetching all blog posts...');
+    const posts = getAllPosts();
+    urls = posts.map(post => `${SITE_URL}/blog/${post.slug}`);
+    // Add main static pages too
+    urls.push(SITE_URL);
+    urls.push(`${SITE_URL}/blog`);
+    urls.push(`${SITE_URL}/services`);
+  }
 
   if (urls.length === 0) {
     console.log('ℹ️ Usage: node scripts/google-indexing.mjs <url1> <url2> ...');
-    console.log('Example: node scripts/google-indexing.mjs https://techwithpaaji.in/blog/throning-meaning-social-status-dating-trend');
+    console.log('OR: node scripts/google-indexing.mjs --all');
     return;
   }
 
   console.log(`🚀 Starting indexing for ${urls.length} URLs...`);
 
+  // Google has a quota (usually 200 per day). We process them in sequence.
   for (const url of urls) {
     try {
       const response = await indexing.urlNotifications.publish({
@@ -49,10 +59,19 @@ async function indexUrls() {
         },
       });
       console.log(`✅ Success: ${url} (Status: ${response.status})`);
+      // Small delay to be polite to the API
+      await new Promise(resolve => setTimeout(resolve, 500));
     } catch (error) {
       console.error(`❌ Failed: ${url} - ${error.message}`);
+      if (error.message.includes('quota')) {
+        console.log('🛑 Quota reached for today. Stoping.');
+        break;
+      }
     }
   }
+  
+  console.log('✨ All done!');
 }
 
 indexUrls();
+
