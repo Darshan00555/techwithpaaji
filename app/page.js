@@ -143,8 +143,17 @@ export const metadata = {
 
 export default function HomePage() {
   const allPosts = getAllPosts();
-  const latestPosts = allPosts.slice(0, 6);
+  const latestPosts = allPosts.slice(0, 12);
   const totalPosts = allPosts.length;
+
+  const categories = [
+    { name: "Dating Trends", icon: "🔥", slug: "dating-trends" },
+    { name: "Breakup Recovery", icon: "💔", slug: "breakup-recovery" },
+    { name: "Communication", icon: "🗣️", slug: "communication" },
+    { name: "Trust & Healing", icon: "🤝", slug: "trust-repair" },
+    { name: "Relationship Psychology", icon: "🧠", slug: "psychology" },
+    { name: "Modern Marriage", icon: "💍", slug: "marriage" },
+  ];
 
   return (
     <div className="page-shell">
@@ -153,6 +162,41 @@ export default function HomePage() {
         <main>
           <Hero />
           <Services />
+          
+          {/* ── BROWSE BY CONCERN SECTION ── */}
+          <section className="py-16 bg-[#0f3d3e]/[0.02]">
+            <div className="container-premium">
+              <div className="text-center mb-12">
+                <p className="text-[0.7rem] font-bold tracking-[0.25em] uppercase text-[#2A9D8F] mb-4">
+                  Find Your Answer
+                </p>
+                <h2 className="text-[clamp(1.8rem,4vw,2.8rem)] font-semibold text-[#0F3D3E] mb-4">
+                  Browse by Your Situation
+                </h2>
+                <p className="text-[1.05rem] text-[#0e1e1e]/65 max-w-2xl mx-auto">
+                   Explore hundreds of expert guides tailored to exactly what you are going through right now.
+                </p>
+              </div>
+              
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+                {categories.map((cat) => (
+                  <Link
+                    key={cat.slug}
+                    href={`/blog?category=${cat.slug}`}
+                    className="group bg-white border border-[#0F3D3E]/10 rounded-2xl p-6 text-center transition-all duration-300 hover:border-[#2A9D8F]/40 hover:shadow-lg hover:-translate-y-1"
+                  >
+                    <div className="text-3xl mb-3 group-hover:scale-110 transition-transform duration-300">
+                      {cat.icon}
+                    </div>
+                    <h3 className="text-sm font-semibold text-[#0F3D3E] group-hover:text-[#2A9D8F]">
+                      {cat.name}
+                    </h3>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </section>
+
           <Process />
           <Testimonials />
           <FAQ />
@@ -267,13 +311,14 @@ export default function HomePage() {
                   </Link>
                 ))}
               </div>
-              <div className="mt-6">
+              <div className="mt-8 text-center">
                 <Link href="/blog" className="premium-button bg-[#0F3D3E] text-white inline-flex">
-                  Read All {totalPosts}+ Articles →
+                  Explore All {totalPosts}+ Expert Articles →
                 </Link>
               </div>
             </div>
           </section>
+
 
           <CTA />
         </main>

@@ -31,9 +31,10 @@ export default function sitemap() {
     const blogEntries = getAllPosts().map((post) => ({
         url: `${SITE_URL}/blog/${post.slug}`,
         lastModified: post.updatedAt || post.date,
-        changeFrequency: "weekly",
+        changeFrequency: "daily",
         priority: 0.8,
     }));
+
 
     return [...staticEntries, ...blogEntries];
 }

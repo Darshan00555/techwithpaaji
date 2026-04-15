@@ -159,7 +159,7 @@ export default async function BlogPostPage({ params }) {
   const otherPosts = allPosts.filter(
     (p) => p.slug !== post.slug && p.category !== post.category
   );
-  const relatedPosts = [...sameCategoryPosts, ...otherPosts].slice(0, 4);
+  const relatedPosts = [...sameCategoryPosts, ...otherPosts].slice(0, 8);
 
   const pageUrl = `${SITE_URL}/blog/${post.slug}`;
 
@@ -331,6 +331,30 @@ export default async function BlogPostPage({ params }) {
                   </Link>
                 </div>
 
+                {/* Categories List */}
+                <div className="rounded-2xl border border-[#0F3D3E]/12 bg-white/72 p-5">
+                  <h3 className="text-sm font-semibold text-[#0F3D3E]">Browse by Topic</h3>
+                  <div className="mt-3 grid grid-cols-1 gap-2">
+                    {[
+                      { name: "Dating Trends", slug: "dating-trends" },
+                      { name: "Breakup Recovery", slug: "breakup-recovery" },
+                      { name: "Communication", slug: "communication" },
+                      { name: "Trust & Repair", slug: "trust-repair" },
+                      { name: "Psychology", slug: "psychology" },
+                      { name: "Modern Marriage", slug: "marriage" },
+                    ].map((cat) => (
+                      <Link
+                        key={cat.slug}
+                        href={`/blog?category=${cat.slug}`}
+                        className="flex items-center justify-between rounded-lg border border-[#0F3D3E]/8 bg-white/50 px-3 py-2 text-xs font-medium text-[#0E1E1E]/75 transition-all hover:border-[#2A9D8F]/40 hover:text-[#0F3D3E]"
+                      >
+                        {cat.name}
+                        <span>→</span>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+
                 {/* Related Links */}
                 <div className="rounded-2xl border border-[#0F3D3E]/12 bg-white/72 p-5">
                   <h3 className="text-sm font-semibold text-[#0F3D3E]">Our Services</h3>
@@ -370,7 +394,7 @@ export default async function BlogPostPage({ params }) {
                   </Link>
                 </div>
                 
-                <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+                <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                   {relatedPosts.map((relPost) => (
                     <Link
                       key={relPost.slug}
