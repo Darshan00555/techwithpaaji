@@ -5,7 +5,7 @@ import PageTransition from "../../components/PageTransition";
 import { OG_IMAGE, SITE_NAME, SITE_URL } from "../../lib/seo";
 
 export const metadata = {
-  title: "About Paaji Connect | Relationship Consultant India",
+  title: "Relationship Consultant India",
   description:
     "Learn about Paaji Connect, a relationship consultant India clients trust for communication coaching, breakup recovery, and relationship growth strategy.",
   keywords: [

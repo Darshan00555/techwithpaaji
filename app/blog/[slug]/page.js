@@ -6,6 +6,11 @@ import Navbar from "../../../components/Navbar";
 import PageTransition from "../../../components/PageTransition";
 import AdsterraNativeBanner from "../../../components/AdsterraNativeBanner";
 import { getAllSlugs, getAllPosts, getPostBySlug } from "../../../lib/mdxUtils";
+import {
+  getBlogCategoryHrefFromSlug,
+  normalizeBlogHref,
+  stripLeadingTitleHeading,
+} from "../../../lib/blogSeo";
 import { OG_IMAGE, SITE_NAME, SITE_URL } from "../../../lib/seo";
 
 function formatDate(date) {
@@ -63,12 +68,12 @@ export async function generateMetadata({ params }) {
   const cleanKeywords = post.keywords.slice(0, 10);
 
   return {
-    title: `${post.title} | Paaji Connect`,
+    title: post.title,
     description: seoDescription,
     keywords: cleanKeywords,
     alternates: { canonical: path },
     openGraph: {
-      title: `${post.title} | Paaji Connect`,
+      title: post.title,
       description: seoDescription,
       url: `${SITE_URL}${path}`,
       siteName: SITE_NAME,
@@ -77,7 +82,7 @@ export async function generateMetadata({ params }) {
     },
     twitter: {
       card: "summary_large_image",
-      title: `${post.title} | Paaji Connect`,
+      title: post.title,
       description: seoDescription,
       images: [OG_IMAGE],
     }
@@ -89,9 +94,9 @@ const mdxComponents = {
   h1: (props) => {
     const id = slugify(props.children);
     return (
-      <h1
+      <h2
         id={id}
-        className="mt-8 text-2xl font-semibold text-[#0F3D3E] sm:text-4xl"
+        className="mt-10 mb-4 text-[1.25rem] font-semibold text-[#0F3D3E] border-b border-[#0F3D3E]/10 pb-2 sm:text-3xl"
         {...props}
       />
     );
@@ -126,12 +131,25 @@ const mdxComponents = {
     <ol className="my-4 space-y-2 pl-6 list-decimal text-[#0E1E1E]/84" {...props} />
   ),
   li: (props) => <li className="text-[0.9375rem] leading-[1.7] sm:text-base" {...props} />,
-  a: (props) => (
-    <a
-      className="font-semibold text-[#0F3D3E] underline decoration-[#2A9D8F]/50 underline-offset-4 transition-colors duration-200 hover:text-[#2A9D8F]"
-      {...props}
-    />
-  ),
+  a: ({ href, children, ...props }) => {
+    const normalizedHref = normalizeBlogHref(href);
+    const className =
+      "font-semibold text-[#0F3D3E] underline decoration-[#2A9D8F]/50 underline-offset-4 transition-colors duration-200 hover:text-[#2A9D8F]";
+
+    if (normalizedHref?.startsWith("/")) {
+      return (
+        <Link href={normalizedHref} className={className}>
+          {children}
+        </Link>
+      );
+    }
+
+    return (
+      <a href={normalizedHref} className={className} {...props}>
+        {children}
+      </a>
+    );
+  },
   strong: (props) => (
     <strong className="font-semibold text-[#0F3D3E]" {...props} />
   ),
@@ -150,6 +168,8 @@ export default async function BlogPostPage({ params }) {
   const post = getPostBySlug(slug);
 
   if (!post) notFound();
+
+  const articleContent = stripLeadingTitleHeading(post.content, post.title);
 
   // Get related posts: same category first, then others, exclude current post, take 4
   const allPosts = getAllPosts();
@@ -203,7 +223,7 @@ export default async function BlogPostPage({ params }) {
     keywords: post.keywords.join(", "),
     articleSection: post.category,
     inLanguage: "en-IN",
-    wordCount: post.content.split(/\s+/).length,
+    wordCount: articleContent.split(/\s+/).filter(Boolean).length,
   };
 
   // --- WebPage schema ---
@@ -227,7 +247,7 @@ export default async function BlogPostPage({ params }) {
 
   // --- FAQPage schema: extract Q&A pairs from MDX FAQ section ---
   const faqMatches = [];
-  const faqSectionMatch = post.content.match(/## Frequently Asked Questions(.*?)(?=\n## |$)/s);
+  const faqSectionMatch = articleContent.match(/## Frequently Asked Questions(.*?)(?=\n## |$)/s);
   if (faqSectionMatch) {
     const faqBlock = faqSectionMatch[1];
     // Match bold questions followed by their answer paragraph
@@ -287,7 +307,7 @@ export default async function BlogPostPage({ params }) {
             <div className="container-premium grid gap-10 lg:grid-cols-[1fr_300px]">
               {/* Main article body */}
               <div className="glass-card p-5 sm:p-10 min-w-0">
-                <MDXRemote source={post.content} components={mdxComponents} />
+                <MDXRemote source={articleContent} components={mdxComponents} />
                 <AdsterraNativeBanner />
               </div>
 
@@ -345,7 +365,7 @@ export default async function BlogPostPage({ params }) {
                     ].map((cat) => (
                       <Link
                         key={cat.slug}
-                        href={`/blog?category=${cat.slug}`}
+                        href={getBlogCategoryHrefFromSlug(cat.slug)}
                         className="flex items-center justify-between rounded-lg border border-[#0F3D3E]/8 bg-white/50 px-3 py-2 text-xs font-medium text-[#0E1E1E]/75 transition-all hover:border-[#2A9D8F]/40 hover:text-[#0F3D3E]"
                       >
                         {cat.name}

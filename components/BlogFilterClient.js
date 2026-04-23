@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { getCategorySlug } from "../lib/blogSeo";
 
 const POSTS_PER_PAGE = 12;
 
@@ -42,6 +43,36 @@ export default function BlogFilterClient({ posts }) {
     return cats;
   }, [posts]);
 
+  useEffect(() => {
+    if (typeof window === "undefined") return undefined;
+
+    function syncCategoryFromHash() {
+      const hash = window.location.hash.replace(/^#/, "");
+      const params = new URLSearchParams(hash);
+      const categorySlug = params.get("category");
+
+      if (!categorySlug) {
+        setActiveCategory("All");
+        return;
+      }
+
+      const matchingCategory = categories.find(
+        (category) => getCategorySlug(category) === categorySlug
+      );
+
+      if (matchingCategory) {
+        setActiveCategory(matchingCategory);
+        setSearchQuery("");
+        setCurrentPage(1);
+      }
+    }
+
+    syncCategoryFromHash();
+    window.addEventListener("hashchange", syncCategoryFromHash);
+
+    return () => window.removeEventListener("hashchange", syncCategoryFromHash);
+  }, [categories]);
+
   // Filter posts based on search query and active category
   const filteredPosts = useMemo(() => {
     const q = searchQuery.toLowerCase().trim();
@@ -76,18 +107,39 @@ export default function BlogFilterClient({ posts }) {
   function handleSearch(val) {
     setSearchQuery(val);
     setCurrentPage(1);
+
+    if (typeof window !== "undefined" && window.location.hash) {
+      window.history.replaceState(null, "", window.location.pathname);
+    }
   }
 
   function handleCategory(cat) {
     setActiveCategory(cat);
     setSearchQuery("");
     setCurrentPage(1);
+
+    if (typeof window === "undefined") return;
+
+    if (cat === "All") {
+      window.history.replaceState(null, "", window.location.pathname);
+      return;
+    }
+
+    window.history.replaceState(
+      null,
+      "",
+      `${window.location.pathname}#category=${getCategorySlug(cat)}`
+    );
   }
 
   function handleReset() {
     setSearchQuery("");
     setActiveCategory("All");
     setCurrentPage(1);
+
+    if (typeof window !== "undefined" && window.location.hash) {
+      window.history.replaceState(null, "", window.location.pathname);
+    }
   }
 
   return (
@@ -152,7 +204,7 @@ export default function BlogFilterClient({ posts }) {
             <span> in <strong>{activeCategory}</strong></span>
           )}
           {searchQuery && (
-            <span> matching <strong>"{searchQuery}"</strong></span>
+            <span> matching <strong>&quot;{searchQuery}&quot;</strong></span>
           )}
           {totalPages > 1 && (
             <span className="page-info"> · Page {safePage} of {totalPages}</span>

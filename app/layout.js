@@ -138,11 +138,6 @@ const websiteSchema = {
   url: SITE_URL,
   description: siteDescription,
   inLanguage: "en-IN",
-  potentialAction: {
-    "@type": "SearchAction",
-    target: `${SITE_URL}/blog?query={search_term_string}`,
-    "query-input": "required name=search_term_string"
-  }
 };
 
 export default function RootLayout({ children }) {

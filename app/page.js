@@ -11,6 +11,7 @@ import Testimonials from "../components/Testimonials";
 import Link from "next/link";
 import { OG_IMAGE, SITE_NAME, SITE_URL } from "../lib/seo";
 import { getAllPosts } from "../lib/mdxUtils";
+import { getBlogCategoryHrefFromSlug } from "../lib/blogSeo";
 
 const localBusinessSchema = {
   "@context": "https://schema.org",
@@ -87,18 +88,10 @@ const webSiteSchema = {
   "@type": "WebSite",
   name: SITE_NAME,
   url: SITE_URL,
-  potentialAction: {
-    "@type": "SearchAction",
-    target: {
-      "@type": "EntryPoint",
-      urlTemplate: `${SITE_URL}/blog?q={search_term_string}`
-    },
-    "query-input": "required name=search_term_string"
-  }
 };
 
 export const metadata = {
-  title: "Expert Relationship Coach in India | Paaji Connect",
+  title: "Expert Relationship Coach in India",
   description:
     "Work with Paaji Connect — India's trusted relationship coach for breakup recovery, communication coaching for couples, and trust rebuilding.",
   keywords: [
@@ -182,7 +175,7 @@ export default function HomePage() {
                 {categories.map((cat) => (
                   <Link
                     key={cat.slug}
-                    href={`/blog?category=${cat.slug}`}
+                    href={getBlogCategoryHrefFromSlug(cat.slug)}
                     className="group bg-white border border-[#0F3D3E]/10 rounded-2xl p-6 text-center transition-all duration-300 hover:border-[#2A9D8F]/40 hover:shadow-lg hover:-translate-y-1"
                   >
                     <div className="text-3xl mb-3 group-hover:scale-110 transition-transform duration-300">

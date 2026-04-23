@@ -101,7 +101,7 @@ const breadcrumbSchema = {
 };
 
 export const metadata = {
-  title: "Breakup Recovery Coach India | Paaji Connect",
+  title: "Breakup Recovery Coach India",
   description:
     "Work with a breakup recovery coach India clients trust — emotional healing, confidence rebuilding, and safe reconnection strategy after heartbreak. Private sessions available online.",
   keywords: [
