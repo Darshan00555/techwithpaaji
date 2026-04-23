@@ -8,10 +8,11 @@ const KEY_PATH = path.join(process.cwd(), 'credentials.json');
 const SITE_URL = 'https://techwithpaaji.in';
 
 /**
- * 1. Ensure you have a service account and downloaded the 'credentials.json' to the root directory.
- * 2. Empower the service account email in Search Console (Settings > Users and permissions > Add User).
- * 3. Run: node scripts/google-indexing.mjs <url1> <url2> ...
- *    OR: node scripts/google-indexing.mjs --all
+ * Google's Indexing API is officially intended for JobPosting and livestream
+ * pages, not standard blogs or service pages like this site.
+ *
+ * If you still need to test the script for a supported use case, run it with:
+ * node scripts/google-indexing.mjs --force-unsupported <url1> <url2> ...
  */
 
 async function indexUrls() {
@@ -30,6 +31,18 @@ async function indexUrls() {
   google.options({ auth: authClient });
 
   let urls = process.argv.slice(2);
+  const forceUnsupported = urls.includes('--force-unsupported');
+  urls = urls.filter((url) => url !== '--force-unsupported');
+
+  if (!forceUnsupported) {
+    console.error(
+      '⚠️ Google Indexing API is not meant for regular blog or service pages. Use sitemap.xml + Search Console URL Inspection instead.'
+    );
+    console.error(
+      'If you are submitting a supported JobPosting or livestream URL, rerun with --force-unsupported.'
+    );
+    return;
+  }
 
   if (urls.includes('--all')) {
     console.log('📂 Fetching all blog posts...');
@@ -74,4 +87,3 @@ async function indexUrls() {
 }
 
 indexUrls();
-
