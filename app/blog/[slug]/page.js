@@ -19,7 +19,7 @@ import {
   stripKeyTakeaways,
 } from "../../../lib/articleParse";
 import { normalizeBlogHref, stripLeadingTitleHeading } from "../../../lib/blogSeo";
-import { OG_IMAGE, SITE_NAME, SITE_URL, toMetaDescription } from "../../../lib/seo";
+import { OG_IMAGE, SITE_NAME, SITE_URL, toMetaDescription, toSerpTitle } from "../../../lib/seo";
 
 function formatDate(date) {
   if (!date) return "";
@@ -54,7 +54,10 @@ export async function generateMetadata({ params }) {
 
   // `absolute` drops the " | Paaji Connect" template suffix, which was pushing
   // every article title past the ~60 character SERP truncation point.
-  const seoTitle = post.seoTitle || post.title;
+  // When seoTitle is not authored, toSerpTitle intelligently shortens the title
+  // by understanding colon splits, parentheticals, and filler suffixes rather
+  // than blindly truncating at 60 characters.
+  const seoTitle = post.seoTitle || toSerpTitle(post.title);
 
   return {
     title: { absolute: seoTitle },

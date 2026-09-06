@@ -16,7 +16,7 @@ import { getBlogCategoryHrefFromSlug } from "../lib/blogSeo";
 const localBusinessSchema = {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
-  "@id": `${SITE_URL}/#organization`,
+  "@id": `${SITE_URL}/#local-business`,
   name: SITE_NAME,
   description:
     "Paaji Connect is India's trusted relationship coaching platform specializing in breakup recovery, communication coaching for couples, trust rebuilding, and relationship reset programs.",
@@ -35,6 +35,7 @@ const localBusinessSchema = {
     "longitude": "72.5714"
   },
   sameAs: [
+    "https://share.google/xod1Krp6veUWtnxSu",
     "https://www.instagram.com/paaji.connect",
     "https://www.youtube.com/@paajiconnect"
   ],
@@ -83,12 +84,7 @@ const breadcrumbSchema = {
   ]
 };
 
-const webSiteSchema = {
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  name: SITE_NAME,
-  url: SITE_URL,
-};
+
 
 export const metadata = {
   title: "Expert Relationship Coach in India",
@@ -321,10 +317,7 @@ export default function HomePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
       />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteSchema) }}
-      />
+
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}

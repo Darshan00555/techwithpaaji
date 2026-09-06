@@ -149,6 +149,7 @@ export default function RootLayout({ children }) {
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://www.googletagmanager.com" />
+        <link rel="alternate" type="application/rss+xml" href="/feed.xml" title="Paaji Connect RSS Feed" />
       </head>
       <body className="antialiased">
         <Script
