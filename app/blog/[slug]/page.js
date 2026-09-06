@@ -13,7 +13,11 @@ import {
   getRelatedPosts,
 } from "../../../lib/mdxUtils";
 import { CATEGORIES, getCategory, getCategoryHref } from "../../../lib/taxonomy";
-import { slugifyHeading, stripFaqSection } from "../../../lib/articleParse";
+import {
+  slugifyHeading,
+  stripFaqSection,
+  stripKeyTakeaways,
+} from "../../../lib/articleParse";
 import { normalizeBlogHref, stripLeadingTitleHeading } from "../../../lib/blogSeo";
 import { OG_IMAGE, SITE_NAME, SITE_URL, toMetaDescription } from "../../../lib/seo";
 
@@ -177,8 +181,8 @@ export default async function BlogPostPage({ params }) {
   const categoryUrl = getCategoryHref(post.categorySlug);
 
   // The FAQ is lifted out of the prose and re-rendered as structured markup.
-  const articleContent = stripFaqSection(
-    stripLeadingTitleHeading(post.content, post.title)
+  const articleContent = stripKeyTakeaways(
+    stripFaqSection(stripLeadingTitleHeading(post.content, post.title))
   );
 
   const relatedPosts = getRelatedPosts(post, 6);
@@ -352,7 +356,7 @@ export default async function BlogPostPage({ params }) {
                   </aside>
                 )}
 
-                <ArticleToc headings={post.headings} />
+                <ArticleToc headings={post.headings} hasFaq={post.faqs.length > 0} />
 
                 <MDXRemote source={articleContent} components={mdxComponents} />
 

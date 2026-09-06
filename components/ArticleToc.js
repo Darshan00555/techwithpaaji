@@ -6,9 +6,13 @@ import Link from "next/link";
  * Rendered as real anchors so Google can build jump-to-section sitelinks, and
  * so answer engines can see the article's structure without executing JS.
  */
-export default function ArticleToc({ headings = [] }) {
+export default function ArticleToc({ headings = [], hasFaq = false }) {
   const items = headings.filter((h) => h.level === 2);
   if (items.length < 3) return null;
+
+  // The FAQ is rendered outside the MDX body, so it is appended here rather
+  // than coming through with the rest of the headings.
+  if (hasFaq) items.push({ id: "faq-heading", text: "Frequently asked questions" });
 
   return (
     <nav
