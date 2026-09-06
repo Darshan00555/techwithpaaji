@@ -15,7 +15,7 @@ import {
 import { CATEGORIES, getCategory, getCategoryHref } from "../../../lib/taxonomy";
 import { slugifyHeading, stripFaqSection } from "../../../lib/articleParse";
 import { normalizeBlogHref, stripLeadingTitleHeading } from "../../../lib/blogSeo";
-import { OG_IMAGE, SITE_NAME, SITE_URL } from "../../../lib/seo";
+import { OG_IMAGE, SITE_NAME, SITE_URL, toMetaDescription } from "../../../lib/seo";
 
 function formatDate(date) {
   if (!date) return "";
@@ -46,10 +46,7 @@ export async function generateMetadata({ params }) {
   }
 
   const path = `/blog/${post.slug}`;
-  const description =
-    post.description.length > 158
-      ? `${post.description.slice(0, 155).trimEnd()}…`
-      : post.description;
+  const description = toMetaDescription(post.description);
 
   // `absolute` drops the " | Paaji Connect" template suffix, which was pushing
   // every article title past the ~60 character SERP truncation point.
