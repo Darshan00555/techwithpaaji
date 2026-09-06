@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { getCategorySlug } from "../lib/blogSeo";
+import { CATEGORIES, getCategoryHref } from "../lib/taxonomy";
 
 const POSTS_PER_PAGE = 12;
 
@@ -57,7 +57,7 @@ export default function BlogFilterClient({ posts }) {
       }
 
       const matchingCategory = categories.find(
-        (category) => getCategorySlug(category) === categorySlug
+        (category) => CATEGORIES.find((c) => c.name === category)?.slug === categorySlug
       );
 
       if (matchingCategory) {
@@ -128,7 +128,7 @@ export default function BlogFilterClient({ posts }) {
     window.history.replaceState(
       null,
       "",
-      `${window.location.pathname}#category=${getCategorySlug(cat)}`
+      `${window.location.pathname}#category=${CATEGORIES.find((c) => c.name === cat)?.slug ?? ""}`
     );
   }
 

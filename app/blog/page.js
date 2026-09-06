@@ -3,7 +3,8 @@ import Footer from "../../components/Footer";
 import Navbar from "../../components/Navbar";
 import PageTransition from "../../components/PageTransition";
 import BlogFilterClient from "../../components/BlogFilterClient";
-import { getAllPosts } from "../../lib/mdxUtils";
+import { getAllPosts, getPostsByCategory } from "../../lib/mdxUtils";
+import { CATEGORIES, getCategoryHref } from "../../lib/taxonomy";
 import { OG_IMAGE, SITE_NAME, SITE_URL } from "../../lib/seo";
 
 const allPosts = getAllPosts();
@@ -120,6 +121,45 @@ export default function BlogIndexPage() {
             </div>
           </section>
 
+
+          {/* ── Topic hubs ──
+              Real crawlable category URLs. These sit between /blog and the
+              articles so the archive is a three-level hierarchy instead of one
+              flat page linking to every post. */}
+          <section className="section-pad divider-line pt-0">
+            <div className="container-premium">
+              <h2 className="text-2xl font-semibold text-[#0F3D3E] sm:text-3xl">
+                Start with a topic
+              </h2>
+              <p className="mt-3 max-w-2xl text-sm text-[#0E1E1E]/75 sm:text-base">
+                Every article sits in one of eight topic hubs. Pick the one closest to what
+                you are dealing with right now.
+              </p>
+
+              <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                {CATEGORIES.map((category) => {
+                  const count = getPostsByCategory(category.slug).length;
+                  return (
+                    <Link
+                      key={category.slug}
+                      href={getCategoryHref(category.slug)}
+                      className="group flex h-full flex-col rounded-2xl border border-[#0F3D3E]/12 bg-white/72 p-5 transition-all duration-300 hover:border-[#2A9D8F]/45 hover:shadow-[0_10px_20px_rgba(11,46,47,0.06)]"
+                    >
+                      <h3 className="text-base font-semibold text-[#0F3D3E] transition-colors group-hover:text-[#2A9D8F]">
+                        {category.name}
+                      </h3>
+                      <p className="mt-2 flex-1 text-xs leading-relaxed text-[#0E1E1E]/70">
+                        {category.intent}
+                      </p>
+                      <p className="mt-4 text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-[#2A9D8F]">
+                        {count} {count === 1 ? "guide" : "guides"} →
+                      </p>
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
+          </section>
 
           {/* ── Search + Filter + Blog Grid (Client Component) ── */}
           <BlogFilterClient posts={posts} />
