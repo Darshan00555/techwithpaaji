@@ -4,7 +4,7 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 import Footer from "../../../components/Footer";
 import Navbar from "../../../components/Navbar";
 import PageTransition from "../../../components/PageTransition";
-import AdsterraNativeBanner from "../../../components/AdsterraNativeBanner";
+
 import ArticleToc from "../../../components/ArticleToc";
 import ArticleFaq from "../../../components/ArticleFaq";
 import {
@@ -389,8 +389,6 @@ export default async function BlogPostPage({ params }) {
                     services.
                   </p>
                 </div>
-
-                <AdsterraNativeBanner />
               </div>
 
               <aside className="h-fit space-y-5">
